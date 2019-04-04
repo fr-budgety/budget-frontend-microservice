@@ -1,0 +1,165 @@
+.DashboardLayout {
+  display: flex;
+  flex: 1;
+  min-height: 1px;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.BudgetySidebarIcon {
+  width: 16px;
+  height: 16px;
+  padding-top: 1.5px;
+}
+
+.BudgetySidebar {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  transition: margin-left 250ms ease-out, transform 250ms ease-out;
+  width: 244px;
+  background-color: $darkColor;
+  position: relative;
+
+  &.isClosed {
+    margin-left: -244px;
+  }
+
+  &.isOpen {
+    margin-left: 0;
+  }
+
+  &--logo {
+    background-color: $darkColorAlt;
+    padding-top: 1.3rem;
+    padding-bottom: 1.3rem;
+    padding-left: 15px;
+    display: inline-flex;
+    justify-content: space-between;
+    padding-right: 15px;
+  }
+
+  &--BurgerIcon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+
+    &--icon {
+      display: inline-flex;
+      width: 25px;
+      height: 25px;
+      transition: all .3s;
+
+      &:hover {
+        fill: $secondaryColor;
+        transition: all .3s;
+      }
+    }
+  }
+}
+
+.BudgetySidebarMenu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 1px;
+  padding: 0 0;
+}
+
+.BudgetySidebarBottom {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+
+.BudgetySidebarButton {
+  cursor: pointer;
+  display: flex;
+  padding: 20px 25px;
+  background-color: transparent;
+  border-left: 3px solid transparent;
+  transition: all .3s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, .1);
+    border-left-color: $secondaryColor;
+    transition: all .3s;
+  }
+
+  &--active {
+    background-color: rgba(0, 0, 0, .1);
+    border-left-color: $secondaryColor;
+    transition: all .3s;
+  }
+}
+
+.BudgetySidebarText {
+  margin-left: 10px;
+  font-size: 15px;
+  color: $whiteColor;
+}
+
+.ExpandSidebarButton {
+  width: 25px;
+  height: 16px;
+  margin-right: 15px;
+  margin-top: 1px;
+
+  &--icon {
+    height: 16px;
+    width: 25px;
+  }
+}
+
+.BudgetyMain {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 920px;
+  background-color: $lightColorFromDark;
+
+  &--TopBar {
+    align-items: center;
+    background: $whiteColor;
+    box-shadow: 0 1px 3px 0 rgba(21, 27, 38, .15);
+    display: flex;
+    flex-shrink: 0;
+    padding: 10px 20px;
+
+    &--Title {
+      display: inline-flex;
+      min-width: 1px;
+      padding-right: 5px;
+      justify-content: center;
+      align-items: center;
+    }
+
+  }
+}
+
+.GlobalActions {
+  flex-shrink: 0;
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.LogoutButton {
+  cursor: pointer;
+  margin-left: 15px;
+  fill: $darkColor;
+  width: 25px;
+  transition: all .3s;
+
+  &:hover {
+    transition: all.3s;
+    fill: $secondaryColor;
+  }
+}

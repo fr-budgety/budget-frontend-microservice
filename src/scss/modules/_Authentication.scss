@@ -1,0 +1,53 @@
+.gradient-background {
+    background: #00284e;
+    /* Old browsers */
+    background: -moz-linear-gradient(45deg, #00284e 24%, #c40080 95%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, #00284e 24%, #c40080 95%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, #00284e 24%, #c40080 95%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00284e', endColorstr='#c40080', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+}
+.image-background {
+    background-image: url('/images/background-flow.png');
+    background-size: cover;
+    background-position: center cnter;
+}
+.Authentication{
+    @include max-sm{
+        margin-top: 2rem;
+    }
+    @include max-md{
+        margin-top: 2rem;
+    }
+    @include max-lg{
+        margin-top: 2rem;
+    }
+    
+}
+/** FORM **/
+.sign-form{
+    display: block;
+    position: relative;
+    padding: 1.5rem 0;
+    max-width: 60%;
+    overflow: hidden;
+    @include max-sm{
+        max-width: 90%;
+    }
+    @include max-md{
+        max-width: 80%;
+    }
+    @include lg{
+        max-width: 70%;
+    }
+    @include xl{
+        max-width: 60%;
+    }
+}
+.send-button-container{
+    width: 100%;
+    margin-top:3rem!important;
+}

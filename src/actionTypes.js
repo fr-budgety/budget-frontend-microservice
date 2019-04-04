@@ -1,0 +1,12 @@
+export const GET_ERRORS = 'GET_ERRORS';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const ADD_ACCOUNT = 'ADD_ACCOUNT';
+export const GET_ACCOUNTS = 'GET_ACCOUNTS';
+export const GET_ACCOUNT = 'GET_ACCOUNT';
+export const DELETE_ACCOUNTS = 'DELETE_ACCOUNTS';
+export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const GET_ICONS = 'GET_ICONS';
+export const ADD_EXPENSE = 'ADD_EXPENSE';

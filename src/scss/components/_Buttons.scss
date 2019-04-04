@@ -1,0 +1,84 @@
+.Button {
+    cursor: pointer;
+    background-color: $primaryColor;
+    padding: 15px 60px;
+    border-radius: 5px;
+    color: $whiteColor;
+    transition: .3s ease-out;
+    display: inline-block;
+    position: relative;
+
+    &:hover {
+        background-color: $secondaryColor;
+        transition: .3s ease-out;
+    }
+}
+
+.SendButton {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    margin-top: 35px;
+    margin-right: 15px;
+    margin-left: 15px;
+    transition: all .3s ease-out;
+    width: 35px;
+
+    #ios-arrow-dropright-circle {
+        transition: all .3s ease-out;
+        fill: $darkColor;
+
+        &:hover {
+            fill: $secondaryColor;
+            transition: all .3s ease-out;
+        }
+    }
+}
+
+.DeleteButton {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    width: 20px;
+    margin-right: 0;
+    margin-left: 5px;
+    transition: all .3s ease-out;
+
+    &:hover {
+        #md-close-circle-outline {
+            path {
+                fill: $secondaryColor;
+                transition: all .3s ease-out;
+            }
+        }
+    }
+
+    #md-close-circle-outline {
+        path {
+            transition: all .3s ease-out;
+            fill: $darkColorAlt;
+        }
+    }
+}
+
+.EditButton {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    width: 20px;
+    margin-right: 0;
+    margin-left: 5px;
+    transition: all .3s ease-out;
+
+    &:hover {
+        #Path_367 {
+            fill: $secondaryColor;
+            transition: all .3s ease-out;
+        }
+    }
+
+    #Path_367 {
+        transition: all .3s ease-out;
+        fill: $darkColor;
+    }
+}
