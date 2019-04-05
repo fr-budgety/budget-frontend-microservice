@@ -3,21 +3,24 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { clearErrors } from "../../../redux/actions/accountActions";
 import { setCurrentPage } from "../../../redux/actions/layoutActions";
+import {getCategories} from '../../../redux/actions/categoryActions';
 import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import MainContentArea from "../../../components/grid/MainContentArea";
+import CategoriesList from "../components/CategoriesList";
 
 
 class AccountsDashboard extends Component {
   
   componentDidMount() {
     this.props.setCurrentPage("categories");
+    this.props.getCategories();
   }
 
   render() {
     return (
       <DashboardLayout title="Categories">
           <MainContentArea>
-           main
+           <CategoriesList/>
           </MainContentArea>
       </DashboardLayout>
     );
@@ -27,15 +30,17 @@ class AccountsDashboard extends Component {
 AccountsDashboard.propTypes = {
   errors: PropTypes.object,
   setCurrentPage: PropTypes.func.isRequired,
-  clearErrors: PropTypes.func.isRequired
+  clearErrors: PropTypes.func.isRequired,
+  getCategories: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
+    categories: state.categories,
     errors: state.errors
   };
 };
 export default connect(
   mapStateToProps,
-  { setCurrentPage, clearErrors }
+  { setCurrentPage, clearErrors,getCategories }
 )(AccountsDashboard);

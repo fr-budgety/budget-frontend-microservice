@@ -57,7 +57,7 @@ export const setUserLoading = (isLoading) => {
  * @param {object} data 
  * @param {string} catType 
  */
-const filterCats = (data, catType) => {
+export const filterCats = (data, catType) => {
     const categoriesArr = data;
     let filteredCategories = [];
     if (catType){
