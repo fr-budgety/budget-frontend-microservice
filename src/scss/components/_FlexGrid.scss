@@ -7,7 +7,6 @@
 .flex-container,
 .h-flex-container,
 .v-flex-container {
-	background-color: #CCC;
 	width: 60%;
 	margin: .4rem auto;
 }
@@ -15,10 +14,10 @@
 //Flex Grid Container
 .flex-cell {
 	margin: 0;
-	background-color: #EEE;
+
 	text-align: center;
 	min-width: 8rem;
-	border: 1px solid #CCC;
+	
 }
 
 .flex-container {
@@ -54,6 +53,11 @@
 .flex-cell {
 	flex: 1;
 }
+.flex-space-between{
+	width: 100%;
+	justify-content: flex-start;
+	align-items: center;
+}
 //Flex grid sizes
 .cell-1of1 { flex: 0 0 100%;       }
 .cell-1of2 { flex: 0 0 50%;        }
@@ -61,3 +65,8 @@
 .cell-1of4 { flex: 0 0 25%;        }
 .cell-1of5 { flex: 0 0 20%;        }
 .cell-1of6 { flex: 0 0 16.666667%; }
+
+//Custom Items
+.category-item{
+	max-width: 200px;
+}

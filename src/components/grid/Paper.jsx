@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+//Expected classname: @void, auto
+
 const Paper = ({children, className}) => {
   return (
     <div className={`Paper ${className}`}>

@@ -5,6 +5,8 @@ import { filterCats } from '../../../redux/actions/categoryActions';
 import Paper from '../../../components/grid/Paper';
 import Title from '../../../components/typography/Title';
 import SectionArea from '../../../components/grid/SectionArea';
+import FlexGridContainer from '../../../components/grid/FlexGridContainer';
+import FlexGridCell from '../../../components/grid/FlexGridCell';
 
 class CategoriesList extends Component {
 	handleEditActivation = (_id) => {
@@ -24,25 +26,31 @@ class CategoriesList extends Component {
 				<Title variant="dashboardTitle" color="dark" className="mb-1">
 					Expenses
 				</Title>
-                <SectionArea className="expenses SectionArea--grid">
+                <FlexGridContainer type="flex-space-between">
                 {(typeof expenseCategories !== 'undefined' && expenseCategories.length > 0) ? expenseCategories.map((category) => (
-                        <Paper className="Paper--third">	<p>{category.name}</p></Paper>
+                        <FlexGridCell size="1of4 category-item">
+                            <Paper className="auto"><p>{category.name}</p></Paper>
+                        </FlexGridCell>
                     )) : 
                     <Paper>	
                         <p className="mt-2 mb-2 center darkColorAlt">You currently don't have any expense category.</p>
                     </Paper>
                 }
-                </SectionArea>
+                </FlexGridContainer>
 				<Title variant="dashboardTitle" color="dark" className="mb-1">
 					Incomes
 				</Title>
+                <FlexGridContainer type="flex-space-between">
                 {(typeof incomeCategories !== 'undefined' && incomeCategories.length > 0) ? incomeCategories.map((category) => (
-                        <Paper>	<p>{category.name}</p></Paper>
+                        <FlexGridCell size="1of4 category-item">
+                        <Paper className="auto"><p>{category.name}</p></Paper>
+                    </FlexGridCell>
                     )) : 
                     <Paper>	
                         <p className="mt-2 mb-2 center darkColorAlt">You currently don't have any expense category.</p>
                     </Paper>
                 }
+                </FlexGridContainer>
 			</SectionArea>
 		);
 	}
