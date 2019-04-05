@@ -15,6 +15,7 @@ import {toastrOutput} from './util/toastrOutput';
 import "./scss/main.scss";
 import DashboardLayout from "./layouts/DashboardLayout/DashboardLayout";
 import AccountsDashboard from "./modules/Accounts/pages/AccountsDashboard";
+import CategoriesDashboard from "./modules/Categories/pages/CategoriesDashboard";
 
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
             <Route exact path="/login" component={LoginPage} />
             <PrivateRoute exact path="/dashboard" component={DashboardLayout} />
             <PrivateRoute exact path="/accounts" component={AccountsDashboard} />
+            <PrivateRoute exact path="/categories" component={CategoriesDashboard} />
           </Switch>
         </Router>
         <ReduxToastr
