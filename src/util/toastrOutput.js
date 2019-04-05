@@ -2,10 +2,11 @@ import {
     toastr
 } from 'react-redux-toastr'
 
+
 export const toastrOutput = (type, title, message) => {
     switch (type) {
         case 'success':
-            return toastr.success(title, message);
+            return toastr.light(title, message,20000);
         case 'info':
             return toastr.info(title, message);
         case 'warning':
