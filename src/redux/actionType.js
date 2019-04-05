@@ -13,3 +13,7 @@ export const GET_ACCOUNT = 'GET_ACCOUNT';
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const ADD_ACCOUNT = 'ADD_ACCOUNT';
 export const EDIT_ACCOUNT = 'EDIT_ACCOUNT';
+export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const GET_ICONS = 'GET_ICONS';
