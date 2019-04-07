@@ -33,11 +33,13 @@ class CategoriesList extends Component {
     const { categories } = this.props.categories;
     const expenseCategories = this.filterCategoryByType(categories, "expense");
     const incomeCategories = this.filterCategoryByType(categories, "income");
+    
+    //Switch render between expenses and incomes
     const renderIncome = (type) => {
       if (type === 'expenses'){
         if (typeof expenseCategories !== "undefined" && expenseCategories.length>0){
           return (
-            expenseCategories.map(category => (<CategoryItem item={category}/>))
+            expenseCategories.map(category => (<CategoryItem item={category} handleDeleteConfirmation={this.handleDeleteConfirmation}/>))
           )
         }
         else {

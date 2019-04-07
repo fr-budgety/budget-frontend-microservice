@@ -23,6 +23,30 @@ export const getCategories = (catType) => dispatch => {
     });
   };
 
+//Delete category
+export const deleteCategory = (id) => dispatch => {
+    dispatch(setUserLoading(true));
+    axios
+      .delete(`/api/categories/${id}`)
+      .then( () => {
+        dispatch(setUserLoading(false));
+        dispatch(addToastrMessage('success','Success','The category has been deleted'))
+        return dispatch({
+          type: DELETE_CATEGORY,
+          payload: id
+        })
+      })
+      .catch(err => {
+        dispatch(setUserLoading(false));
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+    });
+  };
+
+
+//Delete Category
 
 /**
  * SET LOADING STATE

@@ -15,7 +15,6 @@ class AccountsDashboard extends Component {
     this.props.setCurrentPage("categories");
     this.props.getCategories();
   }
-
   render() {
     return (
       <DashboardLayout title="Categories">
