@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { deleteAccount } from '../../../redux/actions/accountActions';
+import { setDeleteAccount } from '../../../redux/actions/accountActions';
 import PropTypes from 'prop-types';
 import Title from '../../../components/typography/Title';
 import SpecialText from '../../../components/typography/SpecialText';
@@ -16,23 +16,17 @@ class SingleAccount extends Component {
 		};
 	}
 
-	handleToggleConfirmation = () => {
-		this.setState({
-			deleteConfirmationIsClosed: !this.state.deleteConfirmationIsClosed
-		});
-	};
 	handleEditActivation = (_id) => {
 		this.props.handleEditActivation(_id);
 	};
-	handleDeleteAccount = () => {
-		const { _id } = this.props.account;
-		this.props.deleteAccount(_id);
-	};
+	handleToggleConfirmation = (_id) => {
+    this.props.handleToggleConfirmation();
+    this.props.setDeleteAccount(_id);
+  };
 	render() {
 		const { name, _id } = this.props.account;
 		const { balance } = this.props;
 		return (
-			<React.Fragment>
 				<div className="SingleAccount">
 					<div className="SingleAccount--content">
 						<React.Fragment>
@@ -47,22 +41,11 @@ class SingleAccount extends Component {
 									{balance.balanceAmount}
 								</SpecialText>
 								<ActionButtons type="editButton" onClick={() => this.handleEditActivation(_id)} />
-								<ActionButtons type="deleteButton" onClick={this.handleToggleConfirmation} />
+								<ActionButtons type="deleteButton" onClick={()=>this.handleToggleConfirmation(_id)} />
 							</div>
 						</React.Fragment>
 					</div>
 				</div>
-				<Confirmation
-					visible={this.state.deleteConfirmationIsClosed}
-					onConfirmationModalClose={this.handleToggleConfirmation}
-					handleConfirmationCallback={this.handleDeleteAccount}
-				>
-					<Title variant="h2" color="alt">
-						Are you sure you want to delete your account?
-					</Title>
-					<p className="darkColorAlt">You will delete your account and all related expenses.</p>
-				</Confirmation>
-			</React.Fragment>
 		);
 	}
 }
@@ -79,4 +62,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { deleteAccount })(withRouter(SingleAccount));
+export default connect(mapStateToProps, { setDeleteAccount })(withRouter(SingleAccount));

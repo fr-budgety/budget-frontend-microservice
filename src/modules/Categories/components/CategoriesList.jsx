@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { filterCats } from "../../../redux/actions/categoryActions";
-import Paper from "../../../components/grid/Paper";
 import Title from "../../../components/typography/Title";
 import SectionArea from "../../../components/grid/SectionArea";
 import CategoryItem from "./CategoryItem";
@@ -14,7 +12,8 @@ class CategoriesList extends Component {
       activeType: 'expenses'
     }
   }
-
+  
+  //Switch render state between income and expenses
   switchType = () => {
     const newType = this.state.activeType === 'expenses' ? 'incomes' : 'expenses';
     this.setState({
@@ -22,13 +21,20 @@ class CategoriesList extends Component {
       activeType: newType
     })
   }
+  //Toggle Delete Confirmation
+  handleToggleConfirmation = (_id) => {
+    this.props.handleToggleConfirmation();
+  };
+  //Handle Edit category activation
   handleEditActivation = _id => {
     this.props.handleEditActivation(_id);
   };
+  //Filter category from redux state by type
   filterCategoryByType = (initialArr, type) => {
     const newArr = initialArr.filter(item => item.type === type);
     return newArr;
   };
+
   render() {
     const { categories } = this.props.categories;
     const expenseCategories = this.filterCategoryByType(categories, "expense");
@@ -39,7 +45,7 @@ class CategoriesList extends Component {
       if (type === 'expenses'){
         if (typeof expenseCategories !== "undefined" && expenseCategories.length>0){
           return (
-            expenseCategories.map(category => (<CategoryItem item={category} handleDeleteConfirmation={this.handleDeleteConfirmation}/>))
+            expenseCategories.map(category => (<CategoryItem handleToggleConfirmation={this.handleToggleConfirmation} item={category} handleDeleteConfirmation={this.handleDeleteConfirmation}/>))
           )
         }
         else {
@@ -49,7 +55,7 @@ class CategoriesList extends Component {
       if (type === 'incomes') {
         if (typeof incomeCategories !== "undefined" && incomeCategories.length>0){
           return (
-            incomeCategories.map(category => (<CategoryItem item={category}/>))
+            incomeCategories.map(category => (<CategoryItem handleToggleConfirmation={this.handleToggleConfirmation} handleDeleteConfirmation={this.handleDeleteConfirmation} item={category}/>))
           )
         }
         else {
@@ -57,6 +63,7 @@ class CategoriesList extends Component {
         } 
       }
     }
+    
     return (
       <SectionArea>
         <Title variant="dashboardTitle" color={this.state.activeType==='expenses' ? 'dark' : 'standard' } className="mb-1 action-title" action={this.switchType}>

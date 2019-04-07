@@ -1,7 +1,8 @@
-import {DELETE_CATEGORY, GET_CATEGORIES, ADD_CATEGORY, GET_ICONS} from '../actionType';
+import {DELETE_CATEGORY, GET_CATEGORIES, ADD_CATEGORY, GET_ICONS, SET_DELETE_CATEGORY} from '../actionType';
 
 const initialState = {
     singleCategory: {},
+    deleteCategory: '',
     categories: [],
     icons: []
   }
@@ -17,6 +18,11 @@ const initialState = {
       return {
         ...state,
         categories: action.payload
+      }
+      case SET_DELETE_CATEGORY: 
+      return {
+        ...state,
+        deleteCategory: action.payload
       }
       case ADD_CATEGORY:
       return {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { deleteCategory } from '../../../redux/actions/categoryActions';
+import { setDeleteCategory } from '../../../redux/actions/categoryActions';
 import Paper from "../../../components/grid/Paper";
 import Title from "../../../components/typography/Title";
 import FlexGridContainer from "../../../components/grid/FlexGridContainer";
@@ -17,16 +17,10 @@ class CategoryItem extends Component {
 		};
 	}
 
-	handleToggleConfirmation = () => {
-		this.setState({
-			deleteConfirmationIsClosed: !this.state.deleteConfirmationIsClosed
-		});
+	handleToggleConfirmation = (_id) => {
+    this.props.handleToggleConfirmation();
+    this.props.setDeleteCategory(_id);
   };
-  handleDeleteCategory = () => {
-		const { _id } = this.props.item;
-    this.props.deleteCategory(_id);
-    this.handleToggleConfirmation();
-	};
   render() {
     const {_id, icon, name} = this.props.item;
     return (
@@ -45,23 +39,15 @@ class CategoryItem extends Component {
               </div>
           </FlexGridContainer>
         </Paper>
-        <Confirmation
-					visible={this.state.deleteConfirmationIsClosed}
-					onConfirmationModalClose={this.handleToggleConfirmation}
-					handleConfirmationCallback={this.handleDeleteCategory}
-				>
-					<Title variant="h2" color="alt">
-						Are you sure you want to delete this category?
-					</Title>
-					<p className="darkColorAlt">You will delete this category and all related expenses.</p>
-				</Confirmation>
       </React.Fragment>
     )
   }
 }
 
 CategoryItem.propTypes = {
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
+  categories: PropTypes.object.isRequired,
+  setDeleteCategory: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -70,4 +56,4 @@ const mapStateToProps = (state) => {
 	};
 }
 
-export default connect(mapStateToProps, {deleteCategory})(CategoryItem);
+export default connect(mapStateToProps, {setDeleteCategory})(CategoryItem);

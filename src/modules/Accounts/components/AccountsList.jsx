@@ -12,7 +12,11 @@ class AccountsList extends Component {
 	handleEditActivation = (_id) => {
 		this.props.handleEditActivation(_id);
 	};
-
+	 //Toggle Delete Confirmation
+	 handleToggleConfirmation = (_id) => {
+    this.props.handleToggleConfirmation();
+	};
+	
 	render() {
 		const { accounts } = this.props.accounts;
 		return (
@@ -27,6 +31,7 @@ class AccountsList extends Component {
 								account={account}
 								balance={balanceCalculation(account.expenses, account.startingBalance)}
 								handleEditActivation={this.handleEditActivation}
+								handleToggleConfirmation={this.handleToggleConfirmation}
 							/>
 						)) : <p className="mt-2 mb-2 center darkColorAlt">You currently don't have any active account.</p>}
 				</Paper>

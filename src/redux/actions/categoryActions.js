@@ -1,7 +1,15 @@
 import axios from 'axios';
 import {addToastrMessage} from './toastrActions';
-import {DELETE_CATEGORY, GET_CATEGORIES, ADD_CATEGORY, GET_ICONS, USER_IS_LOADING, GET_ERRORS, CLEAR_ERRORS} from '../actionType';
+import {DELETE_CATEGORY, GET_CATEGORIES, ADD_CATEGORY, GET_ICONS, USER_IS_LOADING, GET_ERRORS, CLEAR_ERRORS, SET_DELETE_CATEGORY} from '../actionType';
 
+
+//Set category to delete before confirmation is true
+export const setDeleteCategory= (_id)=> dispatch => {
+  return dispatch({
+    type: SET_DELETE_CATEGORY,
+    payload: _id
+  })
+}
 //Get All Categories
 export const getCategories = (catType) => dispatch => {
     dispatch(setUserLoading(true));

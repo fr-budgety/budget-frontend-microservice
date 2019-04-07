@@ -1,6 +1,16 @@
 import axios from 'axios';
 import {addToastrMessage} from './toastrActions';
-import {GET_ACCOUNTS, GET_ACCOUNT, EDIT_ACCOUNT, DELETE_ACCOUNT, USER_IS_LOADING, GET_ERRORS, CLEAR_ERRORS, ADD_ACCOUNT} from '../actionType';
+import {GET_ACCOUNTS, GET_ACCOUNT, EDIT_ACCOUNT, DELETE_ACCOUNT, USER_IS_LOADING, GET_ERRORS, CLEAR_ERRORS, ADD_ACCOUNT, SET_DELETE_ACCOUNT} from '../actionType';
+
+
+//Set category to delete before confirmation is true
+export const setDeleteAccount= (_id)=> dispatch => {
+  console.log('account: ', _id)
+  return dispatch({
+    type: SET_DELETE_ACCOUNT,
+    payload: _id
+  })
+}
 
 //Get All Accounts
 export const getAccounts = () => dispatch => {

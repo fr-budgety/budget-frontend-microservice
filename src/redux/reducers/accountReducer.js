@@ -1,7 +1,8 @@
-import {GET_ACCOUNTS, GET_ACCOUNT, EDIT_ACCOUNT, DELETE_ACCOUNT, ADD_ACCOUNT} from '../actionType';
+import {GET_ACCOUNTS, GET_ACCOUNT, EDIT_ACCOUNT, DELETE_ACCOUNT, ADD_ACCOUNT, SET_DELETE_ACCOUNT} from '../actionType';
 
 const initialState = {
     accounts: [],
+    deleteAccount: '',
     singleAccount: {},
     singleAccountCategoriesExpenses: []
 }
@@ -18,6 +19,11 @@ export default function (state = initialState, action) {
                 ...state,
                 accounts: action.payload
             }
+        case SET_DELETE_ACCOUNT: 
+        return {
+            ...state,
+            deleteAccount: action.payload
+        }
         case ADD_ACCOUNT:
             return {
                 ...state,
