@@ -78,6 +78,14 @@ h4,
     &.alt {
         color: $secondaryColor;
     }
+    &.action-title{
+        cursor: pointer;
+        transition: all .3s;
+        &:hover{
+            color: $secondaryColor;
+            transition: all .3s;
+        }
+    }
 }
 
 a {
@@ -206,6 +214,7 @@ a {
 @import './components/SingleAccount';
 @import './components/Confirmation';
 @import './components/FlexGrid';
+@import './components/CategoryItem';
 //Modules
 @import './modules/Authentication';
 @import './modules/Dashboard';

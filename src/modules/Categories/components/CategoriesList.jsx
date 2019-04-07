@@ -5,10 +5,23 @@ import { filterCats } from "../../../redux/actions/categoryActions";
 import Paper from "../../../components/grid/Paper";
 import Title from "../../../components/typography/Title";
 import SectionArea from "../../../components/grid/SectionArea";
-import FlexGridContainer from "../../../components/grid/FlexGridContainer";
-import FlexGridCell from "../../../components/grid/FlexGridCell";
+import CategoryItem from "./CategoryItem";
 
 class CategoriesList extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      activeType: 'expenses'
+    }
+  }
+
+  switchType = () => {
+    const newType = this.state.activeType === 'expenses' ? 'incomes' : 'expenses';
+    this.setState({
+      ...this.state,
+      activeType: newType
+    })
+  }
   handleEditActivation = _id => {
     this.props.handleEditActivation(_id);
   };
@@ -20,33 +33,37 @@ class CategoriesList extends Component {
     const { categories } = this.props.categories;
     const expenseCategories = this.filterCategoryByType(categories, "expense");
     const incomeCategories = this.filterCategoryByType(categories, "income");
-
+    const renderIncome = (type) => {
+      if (type === 'expenses'){
+        if (typeof expenseCategories !== "undefined" && expenseCategories.length>0){
+          return (
+            expenseCategories.map(category => (<CategoryItem item={category}/>))
+          )
+        }
+        else {
+          return(<p className="mt-2 mb-2 center darkColorAlt">You currently don't have any expense category.</p>)
+        } 
+      }
+      if (type === 'incomes') {
+        if (typeof incomeCategories !== "undefined" && incomeCategories.length>0){
+          return (
+            incomeCategories.map(category => (<CategoryItem item={category}/>))
+          )
+        }
+        else {
+          return(<p className="mt-2 mb-2 center darkColorAlt">You currently don't have any income category.</p>)
+        } 
+      }
+    }
     return (
       <SectionArea>
-        <Title variant="dashboardTitle" color="dark" className="mb-1">
+        <Title variant="dashboardTitle" color={this.state.activeType==='expenses' ? 'dark' : 'standard' } className="mb-1 action-title" action={this.switchType}>
           Expenses
         </Title>
-        {typeof expenseCategories !== "undefined" && expenseCategories.length > 0 ? (
-          expenseCategories.map(category => (
-            <Paper>
-              <FlexGridContainer type="flex-space-between">
-                <FlexGridCell size="1of4 category-item">
-                  <p>{category.name}</p>
-                </FlexGridCell>
-                <FlexGridCell size="1of2 category-item">
-                  <p>Icon</p>
-                </FlexGridCell>
-                <FlexGridCell size="1of4 category-item">
-                  <p>Actions</p>
-                </FlexGridCell>
-              </FlexGridContainer>
-            </Paper>
-          ))
-        ) : (
-          <Paper>
-            <p className="mt-2 mb-2 center darkColorAlt">You currently don't have any expense category.</p>
-          </Paper>
-        )}
+        <Title variant="dashboardTitle" color={this.state.activeType==='incomes' ? 'dark' : 'standard' } className="mb-1 action-title" action={this.switchType}>
+          Incomes
+        </Title>
+        {renderIncome(this.state.activeType)}
       </SectionArea>
     );
   }
