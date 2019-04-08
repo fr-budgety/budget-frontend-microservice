@@ -1,0 +1,18 @@
+.IconTextArea{
+    margin-top: 45px;
+    margin-left: 15px;
+    position: relative;
+    display: block;
+    width: auto;
+    border: 2px solid $lightColorAlt;
+    margin-right: 15px;
+    padding: 15px;
+    height: 100px;
+    max-height: 100px;
+    overflow-y: scroll;
+    transition: all .3s ease-out;
+    &:hover{
+        border: 2px solid $secondaryColor;
+        transition: all .3s ease-out;
+    }
+}

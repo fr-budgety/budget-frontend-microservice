@@ -11,6 +11,7 @@ import Form from '../../../components/forms/Form';
 import InputField from '../../../components/forms/inputs/InputField';
 import SelectField from '../../../components/forms/inputs/SelectField';
 import SendButton from '../../../components/buttons/SendButton';
+import IconTextArea from "../../../components/forms/inputs/IconTextArea";
 
 class AddCategory extends Component {
     constructor(props) {
@@ -78,7 +79,7 @@ class AddCategory extends Component {
                 <Modal
                     visible={this.props.addIsActive}
                     width="600"
-                    height="350"
+                    height="550"
                     effect="fadeInUp"
                     onClickAway={this.handleAddCategoryActivation}
                 >
@@ -94,6 +95,7 @@ class AddCategory extends Component {
                         />
                         <SelectField options={selectOptions} onChange={this.handleChange} name="type">
                         </SelectField>
+                        <IconTextArea type={this.state.type}/>
                         <SendButton className="center"/>
                     </Form>
                 </Modal>
