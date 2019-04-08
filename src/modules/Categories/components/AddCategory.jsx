@@ -9,6 +9,7 @@ import Title from "../../../components/typography/Title";
 import SectionArea from "../../../components/grid/SectionArea";
 import Form from '../../../components/forms/Form';
 import InputField from '../../../components/forms/inputs/InputField';
+import SelectField from '../../../components/forms/inputs/SelectField';
 import SendButton from '../../../components/buttons/SendButton';
 
 class AddCategory extends Component {
@@ -16,7 +17,7 @@ class AddCategory extends Component {
         super(props);
         this.state = {
             name: "",
-            type: "",
+            type: "expenses",
             icon: "",
             errors: {
                 name: "",
@@ -69,6 +70,10 @@ class AddCategory extends Component {
 
     render() {
             const { errors } = this.props;
+            const selectOptions = [
+                'expenses',
+                'incomes'
+            ]
             return (
                 <Modal
                     visible={this.props.addIsActive}
@@ -87,6 +92,8 @@ class AddCategory extends Component {
                             onChange={this.handleChange}
                             placeholder="Category Name"
                         />
+                        <SelectField options={selectOptions} onChange={this.handleChange} name="type">
+                        </SelectField>
                         <SendButton className="center"/>
                     </Form>
                 </Modal>
