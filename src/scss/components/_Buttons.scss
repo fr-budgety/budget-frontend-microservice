@@ -12,6 +12,15 @@
         background-color: $secondaryColor;
         transition: .3s ease-out;
     }
+    &.button-small{
+        padding: 10px 30px;
+        background-color: $extraColor;
+        border-color:transparent;
+        &:hover {
+            background-color: $secondaryColor;
+            transition: .3s ease-out;
+        }
+    }
 }
 
 .SendButton {
@@ -81,4 +90,8 @@
         transition: all .3s ease-out;
         fill: $darkColor;
     }
+}
+
+.add-new-category{
+    margin-left: 1rem;
 }

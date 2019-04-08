@@ -9,6 +9,7 @@ import MainContentArea from "../../../components/grid/MainContentArea";
 import CategoriesList from "../components/CategoriesList";
 import Confirmation from "../../../components/confirmation/Confirmation";
 import Title from "../../../components/typography/Title";
+import AddCategory from "../components/AddCategory";
 
 
 
@@ -16,9 +17,14 @@ class CategoryDashboard extends Component {
   constructor(props) {
 		super(props);
 		this.state = {
-			deleteConfirmationIsClosed: false
+      deleteConfirmationIsClosed: false,
+      addIsActive: false
 		};
 	}
+  componentDidMount() {
+    this.props.setCurrentPage("categories");
+    this.props.getCategories();
+  }
 
   //Change state and display modal for delete confirmation
 	handleToggleConfirmation = () => {
@@ -26,27 +32,34 @@ class CategoryDashboard extends Component {
 			deleteConfirmationIsClosed: !this.state.deleteConfirmationIsClosed
 		});
   };
+  // Delete category from redux state
   handleDeleteCategory = () => {
     this.props.deleteCategory(this.props.categories.deleteCategory);
     this.handleToggleConfirmation();
-	};
-  
-  componentDidMount() {
-    this.props.setCurrentPage("categories");
-    this.props.getCategories();
+  };
+  //Handle modal add category activation from state
+  handleAddCategoryActivation = ()=>{
+    this.setState({
+      ...this.state,
+      addIsActive: !this.state.addIsActive,
+    });
+    this.props.clearErrors();
   }
   render() {
     return (
       <DashboardLayout title="Categories">
           <MainContentArea>
-           <CategoriesList handleToggleConfirmation={this.handleToggleConfirmation}/>
+           <CategoriesList handleToggleConfirmation={this.handleToggleConfirmation} handleAddCategoryActivation={this.handleAddCategoryActivation}/>
           </MainContentArea>
-          
+          <AddCategory
+            handleAddCategoryActivation={this.handleAddCategoryActivation}
+            addIsActive={this.state.addIsActive}
+          />
           <Confirmation
 					visible={this.state.deleteConfirmationIsClosed}
 					onConfirmationModalClose={this.handleToggleConfirmation}
 					handleConfirmationCallback={this.handleDeleteCategory}
-				>
+				  >
 					<Title variant="h2" color="alt">
 						Are you sure you want to delete this category?
 					</Title>

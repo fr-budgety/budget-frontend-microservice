@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import Title from "../../../components/typography/Title";
 import SectionArea from "../../../components/grid/SectionArea";
 import CategoryItem from "./CategoryItem";
+import Button from '../../../components/buttons/Button';
+import FlexGridContainer from '../../../components/grid/FlexGridContainer';
 
 class CategoriesList extends Component {
   constructor (props) {
@@ -20,6 +22,10 @@ class CategoriesList extends Component {
       ...this.state,
       activeType: newType
     })
+  }
+  //Pass open Add Category Modal to dashboard state
+  handleAddCategoryActivation = () => {
+    this.props.handleAddCategoryActivation();
   }
   //Toggle Delete Confirmation
   handleToggleConfirmation = (_id) => {
@@ -66,12 +72,20 @@ class CategoriesList extends Component {
     
     return (
       <SectionArea>
-        <Title variant="dashboardTitle" color={this.state.activeType==='expenses' ? 'dark' : 'standard' } className="mb-1 action-title" action={this.switchType}>
-          Expenses
-        </Title>
-        <Title variant="dashboardTitle" color={this.state.activeType==='incomes' ? 'dark' : 'standard' } className="mb-1 action-title" action={this.switchType}>
-          Incomes
-        </Title>
+        <FlexGridContainer>
+          <Title variant="dashboardTitle" color={this.state.activeType==='expenses' ? 'dark' : 'standard' } className="mb-1 action-title" action={this.switchType}>
+            Expenses
+          </Title>
+          <Title variant="dashboardTitle" color={this.state.activeType==='incomes' ? 'dark' : 'standard' } className="mb-1 action-title" action={this.switchType}>
+            Incomes
+          </Title>
+          <Button
+            text="Add new category"
+            buttonType="button-small"
+            classes="add-new-category"
+            action={this.handleAddCategoryActivation}
+          />
+        </FlexGridContainer>
         {renderIncome(this.state.activeType)}
       </SectionArea>
     );

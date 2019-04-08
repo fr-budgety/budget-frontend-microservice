@@ -34,7 +34,6 @@ class AccountsDashboard extends Component {
       });
     }
     if(nextProps.accounts.singleAccount !== this.props.accounts.singleAccount){
-      console.log('Next Account: ', nextProps.accounts.singleAccount)
       const {name, startingBalance, _id} = nextProps.accounts.singleAccount;
       this.setState({
         ...this.state,

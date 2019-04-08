@@ -17,7 +17,7 @@ class AccountsDashboard extends Component {
     this.state = {
       editIsActive: false,
       deleteConfirmationIsClosed: false,
-      actionId: '123'
+      actionId: ''
     };
   }
   componentDidMount() {
