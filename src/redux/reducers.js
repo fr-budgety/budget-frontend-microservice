@@ -5,6 +5,7 @@ import categoryReducer from './reducers/categoryReducer';
 import errorsReducer from './reducers/errorReducer';
 import toastrManagedReducer from './reducers/toastrReducer';
 import layoutReducer from './reducers/layoutReducer';
+import iconReducer from './reducers/iconReducer';
 import {reducer as toastrReducer} from 'react-redux-toastr';
 
 
@@ -15,5 +16,6 @@ export default combineReducers({
  errors: errorsReducer,
  toastr: toastrReducer,
  message: toastrManagedReducer,
- layout: layoutReducer
+ layout: layoutReducer,
+ icons: iconReducer
 });

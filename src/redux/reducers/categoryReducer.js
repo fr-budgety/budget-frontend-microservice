@@ -4,7 +4,6 @@ const initialState = {
     singleCategory: {},
     deleteCategory: '',
     categories: [],
-    icons: []
   }
 
   export default function(state = initialState, action){

@@ -2,34 +2,37 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Modal from "../../../components/modal/Modal";
-import { getAccounts, addAccount, editAccount } from "../../../redux/actions/accountActions";
 import { getCategories } from "../../../redux/actions/categoryActions";
-import { setCurrentPage } from "../../../redux/actions/layoutActions";
-import Title from "../../../components/typography/Title";
-import SectionArea from "../../../components/grid/SectionArea";
+import { getIcons } from "../../../redux/actions/iconActions";
+import FlexGridContainer from '../../../components/grid/FlexGridContainer';
 import Form from '../../../components/forms/Form';
 import InputField from '../../../components/forms/inputs/InputField';
 import SelectField from '../../../components/forms/inputs/SelectField';
 import SendButton from '../../../components/buttons/SendButton';
 import IconTextArea from "../../../components/forms/inputs/IconTextArea";
+import Title from '../../../components/typography/Title';
+import Paper from "../../../components/grid/Paper";
+import CategoryPreview from "./CategoryPreview";
 
 class AddCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
             name: "",
-            type: "expenses",
+            type: "expense",
             icon: "",
             errors: {
                 name: "",
                 type: "",
-                icon: ""
+                icon: {}
             }
         };
     }
     componentDidMount() {
         //Get all categories into state
         this.props.getCategories();
+        //Get all icons into state
+        this.props.getIcons();
     }
     componentWillReceiveProps(nextProps) {
         //Check if there is any error on submission and return it to the errors state
@@ -52,6 +55,13 @@ class AddCategory extends Component {
         ...this.state,
         [name]: value
         });
+        //Clear Icon if switching between types
+        if(name==='type'){
+            this.setState({
+                ...this.state,
+                icon:{}
+            })
+        }
     };
     handleSubmit = e => {
         const CategoryFields = {};
@@ -60,6 +70,7 @@ class AddCategory extends Component {
             ...this.state,
             name: "",
             startingBalance: "",
+            icon:{},
             actionId: ""
         });
         CategoryFields.name = this.state.name;
@@ -68,36 +79,47 @@ class AddCategory extends Component {
         this.props.editAccount(CategoryFields);
         this.handleAddCategoryActivation();
     };
+    handleSelectedIcon = (icon)=>{
+        this.setState({
+            ...this.state,
+            icon
+        })
+    }
+
 
     render() {
-            const { errors } = this.props;
+            const { errors,icons } = this.props;
             const selectOptions = [
-                'expenses',
-                'incomes'
+                'expense',
+                'income'
             ]
             return (
                 <Modal
                     visible={this.props.addIsActive}
                     width="600"
-                    height="550"
+                    height="650"
                     effect="fadeInUp"
                     onClickAway={this.handleAddCategoryActivation}
                 >
-                <Form action={this.handleSubmit} classes="EditAccount--form center--vertical center--horizontal">
-                        <InputField
-                            classes="column"
-                            error={errors.name}
-                            type="input"
-                            name="name"
-                            value={this.state.name}
-                            onChange={this.handleChange}
-                            placeholder="Category Name"
-                        />
-                        <SelectField options={selectOptions} onChange={this.handleChange} name="type">
-                        </SelectField>
-                        <IconTextArea type={this.state.type}/>
-                        <SendButton className="center"/>
-                    </Form>
+                <FlexGridContainer size={100} className="v-flex-container flex-center">
+                    <Title variant="h2" color="alt" className="m-l-15 m-b-30">Select category attributes:</Title>
+                    <Form action={this.handleSubmit} classes="EditAccount--form center--vertical center--horizontal">
+                            <InputField
+                                classes="column m-t-10"
+                                error={errors.name}
+                                type="input"
+                                name="name"
+                                value={this.state.name}
+                                onChange={this.handleChange}
+                                placeholder="Category Name"
+                            />
+                            <SelectField options={selectOptions} onChange={this.handleChange} name="type" classes="m-t-20">
+                            </SelectField>
+                            <IconTextArea type={this.state.type} icons={icons.icons} handleSelectedIcon={this.handleSelectedIcon}/>
+                            <CategoryPreview icon={this.state.icon.icon} name={this.state.name}/>
+                            <SendButton className="center"/>
+                        </Form>
+                </FlexGridContainer>
                 </Modal>
             );
         }
@@ -106,13 +128,15 @@ class AddCategory extends Component {
 AddCategory.propTypes = {
     categories: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
-    getCategories: PropTypes.func.isRequired
+    getCategories: PropTypes.func.isRequired,
+    getIcons: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     categories: state.categories,
+    icons: state.icons,
     errors: state.errors
   };
 };
-export default connect( mapStateToProps,  { getCategories })(AddCategory);
+export default connect( mapStateToProps,  { getCategories, getIcons })(AddCategory);

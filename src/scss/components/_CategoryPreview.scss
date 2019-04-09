@@ -1,0 +1,18 @@
+.CategoryPreview {
+    margin-top:15px;
+    align-items: center;
+    &--container{
+        max-height: 76px;
+    }
+    &--icon{
+        flex-basis: 45px;
+    }
+    &--text{
+        p{
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        }
+    }
+}

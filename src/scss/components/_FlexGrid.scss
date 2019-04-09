@@ -58,6 +58,11 @@
 	justify-content: space-between;
 	align-items: center;
 }
+.flex-center{
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
 //Flex grid sizes
 .cell-1of1 { flex: 0 0 100%;       }
 .cell-1of2 { flex: 0 0 50%;        }
