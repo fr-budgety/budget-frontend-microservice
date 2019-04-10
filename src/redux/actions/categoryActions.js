@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {addToastrMessage} from './toastrActions';
-import {DELETE_CATEGORY, GET_CATEGORIES, ADD_CATEGORY, GET_ICONS, USER_IS_LOADING, GET_ERRORS, CLEAR_ERRORS, SET_DELETE_CATEGORY, TOGGLE_ADD_CATEGORY_MODAL} from '../actionType';
+import {DELETE_CATEGORY, GET_CATEGORIES, ADD_CATEGORY, GET_ICONS, USER_IS_LOADING, GET_ERRORS, CLEAR_ERRORS, SET_DELETE_CATEGORY, TOGGLE_ADD_CATEGORY_MODAL, TOGGLE_EDIT_CATEGORY_MODAL} from '../actionType';
 
 
 //Set category to delete before confirmation is true
@@ -77,11 +77,24 @@ export const addCategory = (categoryData) => dispatch => {
     });
 };
 
-//Toggle category modal
+
+/**
+ * @Desc Toggle Category Modal: 'Add', 'Edit'
+ * @param {*} bool 
+ */
+//Toggle ADD category modal
 export const toggleAddCategoryModal = (bool) => {
   if(!bool){bool = false}
   return {
     type: TOGGLE_ADD_CATEGORY_MODAL,
+    payload: bool
+  }
+}
+//Toggle EDIT category modal
+export const toggleEditCategoryModal = (bool) => {
+  if(!bool){bool = false}
+  return {
+    type: TOGGLE_EDIT_CATEGORY_MODAL,
     payload: bool
   }
 }

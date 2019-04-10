@@ -21,6 +21,9 @@ class CategoryItem extends Component {
     this.props.handleToggleConfirmation();
     this.props.setDeleteCategory(_id);
   };
+  handleEditActivation = (_id) => {
+    this.props.handleEditActivation(_id);
+  }
   render() {
     const {_id, icon, name} = this.props.item;
     return (
@@ -34,7 +37,7 @@ class CategoryItem extends Component {
               <p className="mt-2 mb-2 center darkColorAlt">{name}</p>
               </div>
               <div className="CategoryItem--actions">
-                <ActionButtons type="editButton" />
+                <ActionButtons type="editButton" onClick={()=>this.handleEditActivation(_id)}/>
                 <ActionButtons type="deleteButton" onClick={()=>this.handleToggleConfirmation(_id)}/>
               </div>
           </FlexGridContainer>

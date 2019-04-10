@@ -33,7 +33,7 @@ class CategoriesList extends Component {
   };
   //Handle Edit category activation
   handleEditActivation = _id => {
-    this.props.handleEditActivation(_id);
+    this.props.handleEditCategoryActivation(_id);
   };
   //Filter category from redux state by type
   filterCategoryByType = (initialArr, type) => {
@@ -51,7 +51,13 @@ class CategoriesList extends Component {
       if (type === 'expenses'){
         if (typeof expenseCategories !== "undefined" && expenseCategories.length>0){
           return (
-            expenseCategories.map(category => (<CategoryItem handleToggleConfirmation={this.handleToggleConfirmation} item={category} handleDeleteConfirmation={this.handleDeleteConfirmation}/>))
+            expenseCategories.map(category => (
+              <CategoryItem
+                handleToggleConfirmation={this.handleToggleConfirmation}
+                item={category}
+                handleDeleteConfirmation={this.handleDeleteConfirmation}
+                handleEditActivation={this.handleEditActivation}
+              />))
           )
         }
         else {

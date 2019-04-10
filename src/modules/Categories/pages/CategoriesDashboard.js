@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { clearErrors } from "../../../redux/actions/accountActions";
 import { setCurrentPage } from "../../../redux/actions/layoutActions";
-import {getCategories, deleteCategory, toggleAddCategoryModal} from '../../../redux/actions/categoryActions';
+import {getCategories, deleteCategory, toggleAddCategoryModal, toggleEditCategoryModal} from '../../../redux/actions/categoryActions';
 import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import MainContentArea from "../../../components/grid/MainContentArea";
 import CategoriesList from "../components/CategoriesList";
 import Confirmation from "../../../components/confirmation/Confirmation";
 import Title from "../../../components/typography/Title";
 import AddCategory from "../components/AddCategory";
+import EditCategory from "../components/EditCategory";
 
 
 
@@ -44,16 +45,28 @@ class CategoryDashboard extends Component {
     this.props.toggleAddCategoryModal(action);
     this.props.clearErrors();
   }
+  //Handle modal add category activation from state
+  handleEditCategoryActivation = (id)=>{
+    const {editCategoryModalIsOpen} = this.props.categories
+    const action = !editCategoryModalIsOpen
+    this.props.toggleEditCategoryModal(action);
+    this.props.clearErrors();
+  }
   render() {
     return (
       <DashboardLayout title="Categories">
           <MainContentArea>
-           <CategoriesList handleToggleConfirmation={this.handleToggleConfirmation} handleAddCategoryActivation={this.handleAddCategoryActivation}/>
+           <CategoriesList 
+            handleToggleConfirmation={this.handleToggleConfirmation}
+            handleAddCategoryActivation={this.handleAddCategoryActivation}
+            handleEditCategoryActivation={this.handleEditCategoryActivation}
+          />
           </MainContentArea>
           <AddCategory
             handleAddCategoryActivation={this.handleAddCategoryActivation}
             addIsActive={this.state.addIsActive}
           />
+          <EditCategory/>
           <Confirmation
 					visible={this.state.deleteConfirmationIsClosed}
 					onConfirmationModalClose={this.handleToggleConfirmation}
@@ -84,5 +97,5 @@ const mapStateToProps = state => {
 };
 export default connect(
   mapStateToProps,
-  { setCurrentPage, clearErrors,getCategories, deleteCategory, toggleAddCategoryModal  }
+  { setCurrentPage, clearErrors,getCategories, deleteCategory, toggleAddCategoryModal, toggleEditCategoryModal }
 )(CategoryDashboard);
