@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import _ from 'lodash';
 import Modal from "../../../components/modal/Modal";
-import { getCategories } from "../../../redux/actions/categoryActions";
+import { getCategories, addCategory, clearErrors, toggleAddCategoryModal } from "../../../redux/actions/categoryActions";
 import { getIcons } from "../../../redux/actions/iconActions";
 import FlexGridContainer from '../../../components/grid/FlexGridContainer';
 import Form from '../../../components/forms/Form';
@@ -20,11 +21,11 @@ class AddCategory extends Component {
         this.state = {
             name: "",
             type: "expense",
-            icon: "",
+            icon: {},
             errors: {
                 name: "",
                 type: "",
-                icon: {}
+                icon: ""
             }
         };
     }
@@ -44,7 +45,9 @@ class AddCategory extends Component {
     }
 
     handleAddCategoryActivation = () => {
-        this.props.handleAddCategoryActivation();
+        const { addCategoryModalIsOpen } = this.props.categories;
+        const action = !addCategoryModalIsOpen;
+        this.props.toggleAddCategoryModal(action);
     };
     //Handle Form Change
     handleChange = e => {
@@ -64,20 +67,15 @@ class AddCategory extends Component {
         }
     };
     handleSubmit = e => {
-        const CategoryFields = {};
+        this.props.clearErrors();
+        const categoryFields = {
+            name: this.state.name,
+            type: this.state.type,
+        }
+        //Check if icon is set or use an empty string
+        categoryFields.icon = this.state.icon.icon ? this.state.icon.icon : '';
+        //Send category action
         e.preventDefault();
-        this.setState({
-            ...this.state,
-            name: "",
-            startingBalance: "",
-            icon:{},
-            actionId: ""
-        });
-        CategoryFields.name = this.state.name;
-        CategoryFields.type = this.state.type;
-        CategoryFields.icon = this.state.icon;
-        this.props.editAccount(CategoryFields);
-        this.handleAddCategoryActivation();
     };
     handleSelectedIcon = (icon)=>{
         this.setState({
@@ -89,13 +87,14 @@ class AddCategory extends Component {
 
     render() {
             const { errors,icons } = this.props;
+            const { addCategoryModalIsOpen } = this.props.categories;
             const selectOptions = [
                 'expense',
                 'income'
             ]
             return (
                 <Modal
-                    visible={this.props.addIsActive}
+                    visible={addCategoryModalIsOpen}
                     width="600"
                     height="650"
                     effect="fadeInUp"
@@ -128,15 +127,19 @@ class AddCategory extends Component {
 AddCategory.propTypes = {
     categories: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
+    icons: PropTypes.object.isRequired,
     getCategories: PropTypes.func.isRequired,
-    getIcons: PropTypes.func.isRequired
+    addCategory: PropTypes.func.isRequired,
+    getIcons: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
+    toggleAddCategoryModal: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     categories: state.categories,
     icons: state.icons,
-    errors: state.errors
+    errors: state.errors,
   };
 };
-export default connect( mapStateToProps,  { getCategories, getIcons })(AddCategory);
+export default connect( mapStateToProps,  { getCategories, getIcons, addCategory, clearErrors, toggleAddCategoryModal })(AddCategory);

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { clearErrors } from "../../../redux/actions/accountActions";
 import { setCurrentPage } from "../../../redux/actions/layoutActions";
-import {getCategories, deleteCategory} from '../../../redux/actions/categoryActions';
+import {getCategories, deleteCategory, toggleAddCategoryModal} from '../../../redux/actions/categoryActions';
 import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import MainContentArea from "../../../components/grid/MainContentArea";
 import CategoriesList from "../components/CategoriesList";
@@ -39,10 +39,9 @@ class CategoryDashboard extends Component {
   };
   //Handle modal add category activation from state
   handleAddCategoryActivation = ()=>{
-    this.setState({
-      ...this.state,
-      addIsActive: !this.state.addIsActive,
-    });
+    const {addCategoryModalIsOpen} = this.props.categories
+    const action = !addCategoryModalIsOpen
+    this.props.toggleAddCategoryModal(action);
     this.props.clearErrors();
   }
   render() {
@@ -75,16 +74,15 @@ CategoryDashboard.propTypes = {
   errors: PropTypes.object,
   setCurrentPage: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
-  getCategories: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     categories: state.categories,
-    errors: state.errors
+    errors: state.errors,
   };
 };
 export default connect(
   mapStateToProps,
-  { setCurrentPage, clearErrors,getCategories, deleteCategory }
+  { setCurrentPage, clearErrors,getCategories, deleteCategory, toggleAddCategoryModal  }
 )(CategoryDashboard);

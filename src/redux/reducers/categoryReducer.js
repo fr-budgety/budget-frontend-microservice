@@ -1,9 +1,10 @@
-import {DELETE_CATEGORY, GET_CATEGORIES, ADD_CATEGORY, GET_ICONS, SET_DELETE_CATEGORY} from '../actionType';
+import {DELETE_CATEGORY, GET_CATEGORIES, ADD_CATEGORY, GET_ICONS, SET_DELETE_CATEGORY, TOGGLE_ADD_CATEGORY_MODAL} from '../actionType';
 
 const initialState = {
     singleCategory: {},
     deleteCategory: '',
     categories: [],
+    addCategoryModalIsOpen: false
   }
 
   export default function(state = initialState, action){
@@ -32,6 +33,11 @@ const initialState = {
       return {
         ...state,
         icons: action.payload
+      }
+      case TOGGLE_ADD_CATEGORY_MODAL:
+      return {
+        ...state,
+        addCategoryModalIsOpen: action.payload
       }
       default:
         return state;
