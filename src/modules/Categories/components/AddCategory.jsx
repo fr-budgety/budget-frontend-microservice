@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import _ from 'lodash';
 import Modal from "../../../components/modal/Modal";
 import { getCategories, addCategory, clearErrors, toggleAddCategoryModal } from "../../../redux/actions/categoryActions";
 import { getIcons } from "../../../redux/actions/iconActions";
@@ -12,7 +11,6 @@ import SelectField from '../../../components/forms/inputs/SelectField';
 import SendButton from '../../../components/buttons/SendButton';
 import IconTextArea from "../../../components/forms/inputs/IconTextArea";
 import Title from '../../../components/typography/Title';
-import Paper from "../../../components/grid/Paper";
 import CategoryPreview from "./CategoryPreview";
 
 class AddCategory extends Component {
@@ -54,15 +52,17 @@ class AddCategory extends Component {
         const target = e.target;
         const value = target.type === "checkbox" ? target.checked : target.value;
         const name = target.name;
-        this.setState({
-        ...this.state,
-        [name]: value
-        });
         //Clear Icon if switching between types
         if(name==='type'){
             this.setState({
                 ...this.state,
+                [name]: value,
                 icon:{}
+            })
+        }else{
+            this.setState({
+                ...this.state,
+                [name]: value,
             })
         }
     };
@@ -75,6 +75,7 @@ class AddCategory extends Component {
         //Check if icon is set or use an empty string
         categoryFields.icon = this.state.icon.icon ? this.state.icon.icon : '';
         //Send category action
+        this.props.addCategory(categoryFields);
         e.preventDefault();
     };
     handleSelectedIcon = (icon)=>{
@@ -83,7 +84,6 @@ class AddCategory extends Component {
             icon
         })
     }
-
 
     render() {
             const { errors,icons } = this.props;

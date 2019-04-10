@@ -64,6 +64,7 @@ export const addCategory = (categoryData) => dispatch => {
         type: ADD_CATEGORY,
         payload: success.data
       })
+      dispatch(toggleAddCategoryModal(false));
       dispatch(clearErrors());
       dispatch(addToastrMessage('success','Success','Category has been created!'))
     })

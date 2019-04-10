@@ -69,7 +69,7 @@ export const addAccount = (accountData) => dispatch => {
       })
       console.log('Success Data: ', success.data)
       dispatch(clearErrors());
-      dispatch(addToastrMessage('success','Success','Account as been created!'))
+      dispatch(addToastrMessage('success','Success','Account has been created!'))
     })
     .catch(err =>{
       dispatch(setUserLoading(false));
