@@ -73,7 +73,7 @@ class AddCategory extends Component {
             type: this.state.type,
         }
         //Check if icon is set or use an empty string
-        categoryFields.icon = this.state.icon.icon ? this.state.icon.icon : '';
+        categoryFields.icon = this.state.icon.icon ? this.state.icon.icon : 'default';
         //Send category action
         this.props.addCategory(categoryFields);
         e.preventDefault();
