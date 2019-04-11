@@ -46,10 +46,10 @@ class CategoryDashboard extends Component {
     this.props.clearErrors();
   }
   //Handle modal add category activation from state
-  handleEditCategoryActivation = (id)=>{
+  handleEditCategoryActivation = (_id)=>{
     const {editCategoryModalIsOpen} = this.props.categories
     const action = !editCategoryModalIsOpen
-    this.props.toggleEditCategoryModal(action);
+    this.props.toggleEditCategoryModal(action, _id);
     this.props.clearErrors();
   }
   render() {

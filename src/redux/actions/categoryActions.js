@@ -31,6 +31,7 @@ export const getCategories = (catType) => dispatch => {
     });
   };
 
+
 //Delete category
 export const deleteCategory = (id) => dispatch => {
     dispatch(setUserLoading(true));
@@ -91,11 +92,20 @@ export const toggleAddCategoryModal = (bool) => {
   }
 }
 //Toggle EDIT category modal
-export const toggleEditCategoryModal = (bool) => {
+export const toggleEditCategoryModal = (bool, id) => {
+  //If no id, no category is selected else, get category and add to edit payload
+  let category = '';
+  if(id){
+    category = id;
+  };
+  //If no bool toggle to false and close.
   if(!bool){bool = false}
   return {
     type: TOGGLE_EDIT_CATEGORY_MODAL,
-    payload: bool
+    payload: {
+       toggle: bool,
+       category
+    }
   }
 }
 /**

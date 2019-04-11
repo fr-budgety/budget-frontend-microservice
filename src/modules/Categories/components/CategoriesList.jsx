@@ -67,8 +67,13 @@ class CategoriesList extends Component {
       if (type === 'incomes') {
         if (typeof incomeCategories !== "undefined" && incomeCategories.length>0){
           return (
-            incomeCategories.map(category => (<CategoryItem handleToggleConfirmation={this.handleToggleConfirmation} handleDeleteConfirmation={this.handleDeleteConfirmation} item={category}/>))
-          )
+            incomeCategories.map(category => (
+              <CategoryItem
+                handleToggleConfirmation={this.handleToggleConfirmation}
+                item={category}
+                handleDeleteConfirmation={this.handleDeleteConfirmation}
+                handleEditActivation={this.handleEditActivation}
+                />)))
         }
         else {
           return(<p className="mt-2 mb-2 center darkColorAlt">You currently don't have any income category.</p>)

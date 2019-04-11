@@ -3,6 +3,7 @@ import {DELETE_CATEGORY, GET_CATEGORIES, ADD_CATEGORY, GET_ICONS, SET_DELETE_CAT
 const initialState = {
     singleCategory: {},
     deleteCategory: '',
+    editCategory: '',
     categories: [],
     addCategoryModalIsOpen: false,
     editCategoryModalIsOpen: false
@@ -43,7 +44,8 @@ const initialState = {
       case TOGGLE_EDIT_CATEGORY_MODAL:
       return {
         ...state,
-        editCategoryModalIsOpen: action.payload
+        editCategory: state.categories.filter (category=>category._id === action.payload.category),
+        editCategoryModalIsOpen: action.payload.toggle
       }
       default:
         return state;
