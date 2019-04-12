@@ -29,7 +29,7 @@ class CategoryItem extends Component {
     return (
       <React.Fragment>
         <Paper key={_id} className="CategoryItem--container">
-          <FlexGridContainer type="flex-space-between" className="CategoryItem">
+          <FlexGridContainer type="flex-space-between" className="CategoryItem" size="100">
               <div className="CategoryItem--icon">
                 <img src={setIconPath(icon)} alt={name}/>
               </div>

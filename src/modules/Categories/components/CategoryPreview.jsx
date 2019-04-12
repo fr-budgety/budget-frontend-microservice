@@ -8,6 +8,7 @@ import { setIconPath } from '../../../util/setIconPath';
 class CategoryPreview extends Component {
   render() {
     const {icon, name} = this.props;
+    console.log('the icon: ', icon);
     return (
         <Paper className="CategoryPreview--container m-t-30">
           <FlexGridContainer className="CategoryPreview no-wrap p-r-15 p-l-15" size="100">

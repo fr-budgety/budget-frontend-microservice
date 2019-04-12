@@ -82,7 +82,7 @@ class EditCategory extends Component {
 			this.setState({
 				...this.state,
 				[name]: value,
-				icon: {}
+				icon: 'preview'
 			});
 		} else {
 			this.setState({
