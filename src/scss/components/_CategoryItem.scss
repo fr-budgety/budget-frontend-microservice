@@ -4,6 +4,12 @@
   &--container{
     margin: 1rem;
     margin-left: 0;
+    &.expense{
+      border-right: 5px solid red;
+    }
+    &.income{
+      border-right: 5px solid green;
+    }
   }
   &--icon{
     max-width: 45px;

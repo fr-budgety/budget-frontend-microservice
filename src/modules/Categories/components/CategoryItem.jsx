@@ -25,10 +25,10 @@ class CategoryItem extends Component {
     this.props.handleEditActivation(_id);
   }
   render() {
-    const {_id, icon, name} = this.props.item;
+    const {_id, icon, name, type} = this.props.item;
     return (
       <React.Fragment>
-        <Paper key={_id} className="CategoryItem--container">
+        <Paper key={_id} className={`CategoryItem--container ${type}`}>
           <FlexGridContainer type="flex-space-between" className="CategoryItem" size="100">
               <div className="CategoryItem--icon">
                 <img src={setIconPath(icon)} alt={name}/>
