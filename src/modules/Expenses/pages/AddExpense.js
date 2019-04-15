@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { clearErrors } from "../../../redux/actions/accountActions";
 import { setCurrentPage } from "../../../redux/actions/layoutActions";
 import { getAccounts } from '../../../redux/actions/accountActions';
+import { getIcons } from '../../../redux/actions/iconActions';
 import SelectField from '../../../components/forms/inputs/SelectField';
 import IconTextArea from "../../../components/forms/inputs/IconTextArea";
 
@@ -16,6 +17,7 @@ import Paper from '../../../components/grid/Paper';
 import Title from '../../../components/typography/Title';
 import SectionArea from '../../../components/grid/SectionArea';
 import FlexGridContainer from '../../../components/grid/FlexGridContainer';
+import AddExpenseForm from "../modules/AddExpenseForm";
 
 
 class AddExpense extends Component {
@@ -51,56 +53,7 @@ class AddExpense extends Component {
               Expense:
 				      </Title>
             <Paper>
-              <FlexGridContainer type="flex-space-between" className="CategoryItem" size="100">
-                <Form action={this.handleSubmit} classes="AddExpense--form">
-                <div className="FormRow">
-                  <InputField
-                    classes="column two-columns"
-                    error={errors.startingBalance}
-                    type="input"
-                    name="startingBalance"
-                    value={this.state.startingBalance}
-                    onChange={this.handleChange}
-                    placeholder="Name *"
-                  />
-                  <InputField
-                    classes="column two-columns"
-                    error={errors.startingBalance}
-                    type="input"
-                    name="startingBalance"
-                    value={this.state.startingBalance}
-                    onChange={this.handleChange}
-                    placeholder="Amount *"
-                  />
-                  </div>
-                  <div className="FormRow">
-                  <SelectField options={selectOptions} onChange={this.handleChange} name="type" classes="m-t-20"></SelectField>
-                  </div>
-                  <div className="FormRow">
-                  <InputField
-                    classes="column two-columns"
-                    error={errors.startingBalance}
-                    type="input"
-                    name="startingBalance"
-                    value={this.state.startingBalance}
-                    onChange={this.handleChange}
-                    placeholder="Beneficiary"
-                  />
-                  </div>
-                  <div className="FormRow">
-                  <InputField
-                    classes="column two-columns"
-                    error={errors.startingBalance}
-                    type="input"
-                    name="startingBalance"
-                    value={this.state.startingBalance}
-                    onChange={this.handleChange}
-                    placeholder="Description"
-                  />
-                  </div>
-                  <SendButton />
-                </Form>
-              </FlexGridContainer>
+              <AddExpenseForm icons={this.props.icons}/>
             </Paper>
           </SectionArea>
         </MainContentArea>
