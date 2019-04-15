@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { clearErrors } from "../../../redux/actions/accountActions";
 import { setCurrentPage } from "../../../redux/actions/layoutActions";
+import { getAccounts } from '../../../redux/actions/accountActions';
+import SelectField from '../../../components/forms/inputs/SelectField';
+import IconTextArea from "../../../components/forms/inputs/IconTextArea";
+
 import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import MainContentArea from "../../../components/grid/MainContentArea";
 import Form from '../../../components/forms/Form';
@@ -29,10 +33,16 @@ class AddExpense extends Component {
 
   componentDidMount() {
     this.props.setCurrentPage('expenses');
+    this.props.getAccounts();
   }
 
   render() {
     const { errors } = this.props;
+    const selectOptions = [
+      'expense',
+      'income'
+    ]
+    const { accounts } = this.props.accounts;
     return (
       <DashboardLayout title="Add new expense">
         <MainContentArea>
@@ -62,6 +72,9 @@ class AddExpense extends Component {
                     onChange={this.handleChange}
                     placeholder="Amount *"
                   />
+                  </div>
+                  <div className="FormRow">
+                  <SelectField options={selectOptions} onChange={this.handleChange} name="type" classes="m-t-20"></SelectField>
                   </div>
                   <div className="FormRow">
                   <InputField
@@ -98,14 +111,17 @@ class AddExpense extends Component {
 
 AddExpense.propTypes = {
   errors: PropTypes.object,
+  accounts: PropTypes.object,
   setCurrentPage: PropTypes.func.isRequired,
-  clearErrors: PropTypes.func.isRequired
+  clearErrors: PropTypes.func.isRequired,
+  getAccounts: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
+    accounts: state.accounts,
     categories: state.categories,
     errors: state.errors
   };
 };
-export default connect(mapStateToProps, { setCurrentPage, clearErrors })(AddExpense);
+export default connect(mapStateToProps, { setCurrentPage, clearErrors, getAccounts })(AddExpense);
