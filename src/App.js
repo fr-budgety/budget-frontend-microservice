@@ -16,6 +16,8 @@ import "./scss/main.scss";
 import DashboardLayout from "./layouts/DashboardLayout/DashboardLayout";
 import AccountsDashboard from "./modules/Accounts/pages/AccountsDashboard";
 import CategoriesDashboard from "./modules/Categories/pages/CategoriesDashboard";
+import ExpenseDashboard from "./modules/Expenses/pages/ExpenseDashboard";
+import AddExpense from "./modules/Expenses/pages/AddExpense";
 
 
 class App extends Component {
@@ -36,6 +38,8 @@ class App extends Component {
             <PrivateRoute exact path="/dashboard" component={DashboardLayout} />
             <PrivateRoute exact path="/accounts" component={AccountsDashboard} />
             <PrivateRoute exact path="/categories" component={CategoriesDashboard} />
+            <PrivateRoute exact path="/expenses" component={ExpenseDashboard} />
+            <PrivateRoute exact path="/expenses/add" component={AddExpense} />
           </Switch>
         </Router>
         <ReduxToastr

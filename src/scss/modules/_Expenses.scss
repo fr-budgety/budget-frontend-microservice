@@ -1,0 +1,12 @@
+.AddExpense{
+    &--form{
+        display: flex;
+        margin-left: 15px;
+        margin-right: 15px;
+        flex-direction: column;
+        min-width: 1px;
+        justify-content: space-between;
+        margin-bottom: 45px;
+        width: 100%;
+    }
+}
