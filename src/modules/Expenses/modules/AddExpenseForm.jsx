@@ -64,7 +64,7 @@ class AddExpenseForm extends Component {
                        <SelectFieldExpense options={this.props.accounts.accounts} onChange={this.handleChange} name="accounts" classes="m-t-20"></SelectFieldExpense>
                     </FormRow>
                     <FormRow>
-                        <IconTextArea type={this.state.type} icons={this.props.icons.icons} handleSelectedIcon={this.handleSelectedIcon}/>
+                        <IconTextArea type='expense' icons={this.props.icons.icons} handleSelectedIcon={this.handleSelectedIcon}/>
                     </FormRow>
                     <FormRow>
                         <InputField
