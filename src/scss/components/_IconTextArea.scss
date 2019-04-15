@@ -2,14 +2,17 @@
     margin-top: 45px;
     margin-left: 15px;
     position: relative;
+    display: -webkit-flex;
     display: flex;
     width: auto;
-    border: 2px solid $lightColorAlt;
+    border: 2px solid #E9E9F0;
     margin-right: 15px;
     padding: 15px;
     height: 100px;
+    overflow-x: hidden;
     max-height: 100px;
     overflow-y: scroll;
+    flex-wrap: wrap;
     transition: all .3s ease-out;
     &:hover{
         border: 2px solid $secondaryColor;
@@ -25,6 +28,8 @@
         align-items: flex-start;
         max-width: 45px;
         padding-right: 1rem;
+        padding-top: 0;
+        padding-bottom: 1rem;
         transition: all .1s ease-out;
         opacity:.8;
         &:hover{
