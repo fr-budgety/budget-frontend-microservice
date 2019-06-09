@@ -36,6 +36,7 @@ class AddExpense extends Component {
   componentDidMount() {
     this.props.setCurrentPage('expenses');
     this.props.getAccounts();
+    this.props.getIcons();
   }
 
   render() {
@@ -77,4 +78,4 @@ const mapStateToProps = state => {
     errors: state.errors
   };
 };
-export default connect(mapStateToProps, { setCurrentPage, clearErrors, getAccounts })(AddExpense);
+export default connect(mapStateToProps, { setCurrentPage, clearErrors, getAccounts, getIcons })(AddExpense);
