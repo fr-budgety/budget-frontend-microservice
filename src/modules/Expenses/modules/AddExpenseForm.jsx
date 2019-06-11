@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { clearErrors } from '../../../redux/actions/accountActions';
 import { setCurrentPage } from '../../../redux/actions/layoutActions';
 import { getAccounts } from '../../../redux/actions/accountActions';
+import { addExpense } from '../../../redux/actions/expenseActions';
 import SelectField from '../../../components/forms/inputs/SelectField';
 import Form from '../../../components/forms/Form';
 import InputField from '../../../components/forms/inputs/InputField';
@@ -12,6 +13,8 @@ import FlexGridContainer from '../../../components/grid/FlexGridContainer';
 import FormRow from '../../../components/grid/FormRow';
 import SelectFieldExpense from './SelectFieldExpense';
 import IconTextArea from '../../../components/forms/inputs/IconTextArea';
+import DatePicker from 'react-datepicker2';
+import moment  from 'moment';
 
 class AddExpenseForm extends Component {
 	constructor(props) {
@@ -23,7 +26,7 @@ class AddExpenseForm extends Component {
 			accounts: '',
 			beneficiary: '',
             icon: '',
-            date: '',
+            date: moment(),
 			errors: {
 				name: '',
 				startingBalance: ''
@@ -52,19 +55,19 @@ class AddExpenseForm extends Component {
 		this.props.clearErrors();
 		const expenseFields = {
 			account: this.state.accounts,
-			icon: this.state.icon,
+			category: this.state.icon.name,
 			description: this.state.description,
 			type: this.state.type,
 			amount: this.state.amount,
 			beneficiary: this.state.beneficiary,
-			date: Date.now()
+			date: moment(this.state.date).toISOString()
 		};
 		//Check if icon is set or use an empty string
 		expenseFields.icon = this.state.icon.icon ? this.state.icon.icon : 'default';
+		//Select Account from
+		this.props.addExpense(expenseFields);
 
-		console.log(expenseFields);
-
-		e.preventDefault();
+		e.preventDefault(); 
 	};
 
 	render() {
@@ -102,7 +105,12 @@ class AddExpenseForm extends Component {
 						/>
 					</FormRow>
 					<FormRow>
-
+						<DatePicker
+							value={this.state.date}
+							timePicker={false}
+							onChange={date => this.setState({ date })}
+							className="column two-columns"
+						/>
 					</FormRow>
 					<FormRow>
 						<SelectFieldExpense
@@ -151,7 +159,7 @@ const mapStateToProps = (state) => {
 		accounts: state.accounts,
 		categories: state.categories,
 		icons: state.icons,
-		errors: state.errors
+		errors: state.errors,
 	};
 };
-export default connect(mapStateToProps, { setCurrentPage, clearErrors, getAccounts })(AddExpenseForm);
+export default connect(mapStateToProps, { setCurrentPage, clearErrors, getAccounts, addExpense })(AddExpenseForm);

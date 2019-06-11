@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 /**
  * @description Take an array of objects from expenses, return outgoings, incomes array and balance
  * @param {array} expensesArr 

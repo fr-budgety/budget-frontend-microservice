@@ -3,15 +3,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { clearErrors } from "../../../redux/actions/accountActions";
 import { setCurrentPage } from "../../../redux/actions/layoutActions";
-import {getCategories, deleteCategory, toggleAddCategoryModal, toggleEditCategoryModal} from '../../../redux/actions/categoryActions';
 import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import MainContentArea from "../../../components/grid/MainContentArea";
 import ExpenseActions from "../modules/ExpenseActions";
+import ExpenseList from "../modules/ExpenseList";
 
 
 class ExpenseDashboard extends Component {
   componentDidMount(){
     this.props.setCurrentPage('expenses');
+  }
+
+  sortExpenses = (expensesToSort) => {
+    return expensesToSort;
   }
   
   render() {
@@ -19,6 +23,7 @@ class ExpenseDashboard extends Component {
       <DashboardLayout title="Expenses">
           <MainContentArea>
             <ExpenseActions/>
+            <ExpenseList expenses={this.sortExpenses(this.props.expenses)}/>
           </MainContentArea>      
       </DashboardLayout>
     );
@@ -33,11 +38,11 @@ ExpenseDashboard.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories,
     errors: state.errors,
+    expenses: state.expenses
   };
 };
 export default connect(
   mapStateToProps,
-  { setCurrentPage, clearErrors,getCategories, deleteCategory, toggleAddCategoryModal, toggleEditCategoryModal }
+  { setCurrentPage, clearErrors }
 )(ExpenseDashboard);

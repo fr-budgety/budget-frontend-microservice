@@ -6,8 +6,8 @@ import errorsReducer from './reducers/errorReducer';
 import toastrManagedReducer from './reducers/toastrReducer';
 import layoutReducer from './reducers/layoutReducer';
 import iconReducer from './reducers/iconReducer';
+import expenseReducer from './reducers/expenseReducer';
 import {reducer as toastrReducer} from 'react-redux-toastr';
-
 
 export default combineReducers({
  auth: authReducer,
@@ -17,5 +17,6 @@ export default combineReducers({
  toastr: toastrReducer,
  message: toastrManagedReducer,
  layout: layoutReducer,
- icons: iconReducer
+ icons: iconReducer,
+ expenses: expenseReducer,
 });
