@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { setDeleteCategory } from '../../../redux/actions/categoryActions';
 import Paper from "../../../components/grid/Paper";
-import Title from "../../../components/typography/Title";
 import FlexGridContainer from "../../../components/grid/FlexGridContainer";
 import { setIconPath } from '../../../util/setIconPath';
+import { getIcons } from '../../../redux/actions/iconActions';
 import ActionButtons from '../../../components/buttons/ActionButtons';
-import Confirmation from '../../../components/confirmation/Confirmation';
 
 class CategoryItem extends Component {
   constructor(props) {
@@ -15,7 +13,11 @@ class CategoryItem extends Component {
 		this.state = {
 			deleteConfirmationIsClosed: false
 		};
-	}
+  }
+
+  componentDidMount(){
+    this.props.getIcons();
+  }
 
 	handleToggleConfirmation = (_id) => {
     this.props.handleToggleConfirmation();
@@ -48,15 +50,13 @@ class CategoryItem extends Component {
 }
 
 CategoryItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  categories: PropTypes.object.isRequired,
-  setDeleteCategory: PropTypes.func.isRequired
+  icons: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => {
   return {
-		categories: state.categories
+		icons: state.icons
 	};
 }
 
-export default connect(mapStateToProps, {setDeleteCategory})(CategoryItem);
+export default connect(mapStateToProps, {getIcons})(CategoryItem);

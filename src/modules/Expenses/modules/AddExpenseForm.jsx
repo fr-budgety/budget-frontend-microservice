@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../redux/actions/accountActions';
 import { setCurrentPage } from '../../../redux/actions/layoutActions';
 import { getAccounts } from '../../../redux/actions/accountActions';
 import { addExpense } from '../../../redux/actions/expenseActions';
+import { getCategories } from '../../../redux/actions/categoryActions';
 import SelectField from '../../../components/forms/inputs/SelectField';
 import Form from '../../../components/forms/Form';
 import InputField from '../../../components/forms/inputs/InputField';
@@ -12,9 +14,8 @@ import SendButton from '../../../components/buttons/SendButton';
 import FlexGridContainer from '../../../components/grid/FlexGridContainer';
 import FormRow from '../../../components/grid/FormRow';
 import SelectFieldExpense from './SelectFieldExpense';
-import IconTextArea from '../../../components/forms/inputs/IconTextArea';
 import DatePicker from 'react-datepicker2';
-import moment  from 'moment';
+import moment from 'moment';
 
 class AddExpenseForm extends Component {
 	constructor(props) {
@@ -25,13 +26,17 @@ class AddExpenseForm extends Component {
 			description: '',
 			accounts: '',
 			beneficiary: '',
-            icon: '',
-            date: moment(),
+			category: '',
+			date: moment(),
 			errors: {
 				name: '',
 				startingBalance: ''
 			}
 		};
+	}
+
+	componentDidMount() {
+		this.props.getCategories();
 	}
 
 	//Handle Form Change
@@ -53,26 +58,46 @@ class AddExpenseForm extends Component {
 
 	handleSubmit = (e) => {
 		this.props.clearErrors();
+		const selectedCategoryId = this.getCategoryIdByName(this.state.category);
 		const expenseFields = {
 			account: this.state.accounts,
-			category: this.state.icon.name,
+			category: selectedCategoryId,
 			description: this.state.description,
 			type: this.state.type,
 			amount: this.state.amount,
 			beneficiary: this.state.beneficiary,
 			date: moment(this.state.date).toISOString()
 		};
-		//Check if icon is set or use an empty string
-		expenseFields.icon = this.state.icon.icon ? this.state.icon.icon : 'default';
 		//Select Account from
-		this.props.addExpense(expenseFields);
+		console.log(expenseFields);
+		//this.props.addExpense(expenseFields);
+		e.preventDefault();
+	};
 
-		e.preventDefault(); 
+	//Get Category Id By Name
+	getCategoryIdByName = (categoryToFilter) => {
+		const item = this.props.categories.categories.filter(category=>category.name === categoryToFilter);
+		let itemName;
+		if(!_.isEmpty(item)){
+			itemName = _.first(item);
+		} else {
+			itemName = {name: 'default'};
+		}
+		return itemName.name;
+	}
+
+	//Filter category from redux state by type
+	filterCategoryByType = (initialArr, type) => {
+		const newArr = initialArr.filter(item => item.type === type);
+		return newArr;
 	};
 
 	render() {
 		const { errors } = this.props;
-		const selectOptions = [ 'expense', 'income' ];
+		const { categories } = this.props.categories;
+		const expenseCategories = this.filterCategoryByType(categories, "expense");
+		const incomeCategories = this.filterCategoryByType(categories, "income");
+		const selectOptions = ['expense', 'income'];
 		return (
 			<FlexGridContainer type="flex-space-between" className="AddExpenseForm" size="100">
 				<Form action={this.handleSubmit} classes="AddExpenseForm--form">
@@ -133,10 +158,12 @@ class AddExpenseForm extends Component {
 						/>
 					</FormRow>
 					<FormRow>
-						<IconTextArea
-							type="expense"
-							icons={this.props.icons.icons}
-							handleSelectedIcon={this.handleSelectedIcon}
+						<SelectField
+							defaultOption="Select Category"
+							options={this.state.type === 'expense' ? (expenseCategories.map(expenseCategory => expenseCategory.name)) : (incomeCategories.map(incomeCategory => incomeCategory.name))}
+							onChange={this.handleChange}
+							name="category"
+							classes="column two-columns"
 						/>
 					</FormRow>
 					<SendButton />
@@ -151,7 +178,8 @@ AddExpenseForm.propTypes = {
 	accounts: PropTypes.object,
 	setCurrentPage: PropTypes.func.isRequired,
 	clearErrors: PropTypes.func.isRequired,
-	getAccounts: PropTypes.func.isRequired
+	getAccounts: PropTypes.func.isRequired,
+	getCategories: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -162,4 +190,4 @@ const mapStateToProps = (state) => {
 		errors: state.errors,
 	};
 };
-export default connect(mapStateToProps, { setCurrentPage, clearErrors, getAccounts, addExpense })(AddExpenseForm);
+export default connect(mapStateToProps, { setCurrentPage, clearErrors, getAccounts, addExpense, getCategories })(AddExpenseForm);

@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export const SelectField = ({ classes, error, children,options, name, value, onChange, mapParam}) => (
+export const SelectField = ({ classes, error, children,options, name, value, onChange, mapParam, defaultOption}) => (
   <div className="Field">
     <div className={`SelectField ${classes}`}>
       <label>
         {children}
         <select value={value} onChange={onChange} name={name}>
+        {defaultOption && <option value="">{defaultOption}</option>}
         {options.map(option=>(
             <option value={option}>{option}</option>
         ))}
