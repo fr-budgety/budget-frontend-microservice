@@ -68,9 +68,7 @@ class AddExpenseForm extends Component {
 			beneficiary: this.state.beneficiary,
 			date: moment(this.state.date).toISOString()
 		};
-		//Select Account from
-		console.log(expenseFields);
-		//this.props.addExpense(expenseFields);
+		this.props.addExpense(expenseFields);
 		e.preventDefault();
 	};
 
