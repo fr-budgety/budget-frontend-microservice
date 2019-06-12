@@ -100,12 +100,6 @@ class AddExpenseForm extends Component {
 			<FlexGridContainer type="flex-space-between" className="AddExpenseForm" size="100">
 				<Form action={this.handleSubmit} classes="AddExpenseForm--form">
 					<FormRow>
-						<SelectField
-							options={selectOptions}
-							onChange={this.handleChange}
-							name="type"
-							classes="column two-columns"
-						/>
 						<InputField
 							classes="column two-columns"
 							error={errors.amount}
@@ -114,6 +108,21 @@ class AddExpenseForm extends Component {
 							value={this.state.amount}
 							onChange={this.handleChange}
 							placeholder="Amount *"
+						/>
+							<InputField
+							classes="column two-columns"
+							error={errors.beneficiary}
+							type="input"
+							name="beneficiary"
+							value={this.state.beneficiary}
+							onChange={this.handleChange}
+							placeholder="Beneficiary"
+						/>
+						<DatePicker
+							value={this.state.date}
+							timePicker={false}
+							onChange={date => this.setState({ date })}
+							className="column two-columns"
 						/>
 					</FormRow>
 					<FormRow>
@@ -128,41 +137,35 @@ class AddExpenseForm extends Component {
 						/>
 					</FormRow>
 					<FormRow>
-						<DatePicker
-							value={this.state.date}
-							timePicker={false}
-							onChange={date => this.setState({ date })}
-							className="column two-columns"
+						<SelectField
+							options={selectOptions}
+							onChange={this.handleChange}
+							name="type"
+							classes="column two-columns"
 						/>
-					</FormRow>
-					<FormRow>
 						<SelectFieldExpense
 							defaultOption="Select Account"
 							options={this.props.accounts.accounts}
 							onChange={this.handleChange}
 							name="accounts"
-							classes="m-t-20"
-						/>
-					</FormRow>
-					<FormRow>
-						<InputField
 							classes="column two-columns"
-							error={errors.beneficiary}
-							type="input"
-							name="beneficiary"
-							value={this.state.beneficiary}
-							onChange={this.handleChange}
-							placeholder="Beneficiary"
 						/>
-					</FormRow>
-					<FormRow>
-						<SelectField
+							<SelectField
 							defaultOption="Select Category"
 							options={this.state.type === 'expense' ? (expenseCategories.map(expenseCategory => expenseCategory.name)) : (incomeCategories.map(incomeCategory => incomeCategory.name))}
 							onChange={this.handleChange}
 							name="category"
 							classes="column two-columns"
 						/>
+					</FormRow>
+					<FormRow>
+	
+					</FormRow>
+					<FormRow>
+					
+					</FormRow>
+					<FormRow>
+					
 					</FormRow>
 					<SendButton />
 				</Form>
