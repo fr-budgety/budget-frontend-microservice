@@ -1,0 +1,75 @@
+.ExpenseItem {
+  padding: 0 2rem;
+  //max-width: 200px;
+  &--container {
+    margin: 1rem;
+    margin-left: 0;
+    &.expense {
+      border-right: 5px solid red;
+    }
+    &.income {
+      border-right: 5px solid green;
+    }
+  }
+  &--icon {
+    max-width: 45px;
+    flex-basis: 45px;
+  }
+  &--actions {
+    display: flex;
+    margin-left: auto;
+  }
+  &--meta {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+
+    &--row {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        &:last-child{
+            margin-top:5px;
+        }
+    }
+
+    &--description,
+    &--beneficiary,
+    &--date,
+    &--category {
+        font-family: 'Source Sans Pro', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        outline: none;
+    }
+
+    &--description {
+        font-size: 16px;
+        color: $darkColor;
+        font-weight: 600;
+    }
+
+    &--beneficiary {
+        font-size: 12px;
+        margin-left: 10px;
+        font-weight: 700;
+        color: $lightColor;
+        text-transform: uppercase;
+    }
+
+    &--date {
+        font-size: 12px;
+        font-weight: 700;
+        color: $secondaryColor;
+        text-transform: uppercase;
+    }
+
+    &--category {
+        font-size: 12px;
+        font-weight: 700;
+        margin-left: 10px;
+        color: $darkColor;
+        text-transform: uppercase;
+    }
+  }
+}

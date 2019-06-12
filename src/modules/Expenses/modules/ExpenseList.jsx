@@ -6,6 +6,7 @@ import { setIconPath } from '../../../util/setIconPath';
 import ActionButtons from '../../../components/buttons/ActionButtons';
 import { getExpenses } from '../../../redux/actions/expenseActions';
 import { getCategories } from '../../../redux/actions/categoryActions';
+import SectionArea from "../../../components/grid/SectionArea";
 import Paper from "../../../components/grid/Paper";
 import ExpenseItem from "./ExpenseItem";
 
@@ -20,9 +21,9 @@ class ExpenseDashboard extends Component {
     render() {
         const { expenses } = this.props.expenses;
         return (
-            <div>
-                {expenses.map(expense => <ExpenseItem expense={expense} key={expense._id} categoriesList={this.props.categories}/>)}
-            </div>
+            <SectionArea>
+                    {expenses.map(expense => <ExpenseItem expense={expense} key={expense._id} categoriesList={this.props.categories}/>)}
+            </SectionArea>
         );
     }
 }
