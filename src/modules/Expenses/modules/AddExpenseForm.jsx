@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { accounting } from 'accounting';
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../redux/actions/accountActions';
 import { setCurrentPage } from '../../../redux/actions/layoutActions';
@@ -15,6 +16,8 @@ import FlexGridContainer from '../../../components/grid/FlexGridContainer';
 import FormRow from '../../../components/grid/FormRow';
 import SelectFieldExpense from './SelectFieldExpense';
 import DatePicker from 'react-datepicker2';
+import Title from '../../../components/typography/Title';
+
 import moment from 'moment';
 
 class AddExpenseForm extends Component {
@@ -74,12 +77,12 @@ class AddExpenseForm extends Component {
 
 	//Get Category Id By Name
 	getCategoryIdByName = (categoryToFilter) => {
-		const item = this.props.categories.categories.filter(category=>category.name === categoryToFilter);
+		const item = this.props.categories.categories.filter(category => category.name === categoryToFilter);
 		let itemName;
-		if(!_.isEmpty(item)){
+		if (!_.isEmpty(item)) {
 			itemName = _.first(item);
 		} else {
-			itemName = {name: 'default'};
+			itemName = { name: 'default' };
 		}
 		return itemName.name;
 	}
@@ -109,7 +112,7 @@ class AddExpenseForm extends Component {
 							onChange={this.handleChange}
 							placeholder="Amount *"
 						/>
-							<InputField
+						<InputField
 							classes="column two-columns"
 							error={errors.beneficiary}
 							type="input"
@@ -153,7 +156,7 @@ class AddExpenseForm extends Component {
 							classes="column two-columns"
 							error={errors.account}
 						/>
-							<SelectField
+						<SelectField
 							defaultOption="Select Category"
 							options={this.state.type === 'expense' ? (expenseCategories.map(expenseCategory => expenseCategory.name)) : (incomeCategories.map(incomeCategory => incomeCategory.name))}
 							onChange={this.handleChange}
@@ -161,7 +164,10 @@ class AddExpenseForm extends Component {
 							classes="column two-columns"
 						/>
 					</FormRow>
-					<SendButton />
+					<FormRow>
+						<SendButton />
+						<Title variant="dashboardTitle" color={this.state.type === 'expense' ? 'red' : 'green'} className="mt-2">Total: {accounting.formatNumber(this.state.amount, 2, ",", ".")}</Title>
+					</FormRow>
 				</Form>
 			</FlexGridContainer>
 		);
@@ -174,7 +180,8 @@ AddExpenseForm.propTypes = {
 	setCurrentPage: PropTypes.func.isRequired,
 	clearErrors: PropTypes.func.isRequired,
 	getAccounts: PropTypes.func.isRequired,
-	getCategories: PropTypes.func.isRequired
+	getCategories: PropTypes.func.isRequired,
+	addExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -185,4 +192,4 @@ const mapStateToProps = (state) => {
 		errors: state.errors,
 	};
 };
-export default connect(mapStateToProps, { setCurrentPage, clearErrors, getAccounts, addExpense, getCategories })(AddExpenseForm);
+export default connect(mapStateToProps, { clearErrors, getAccounts, addExpense, getCategories })(AddExpenseForm);

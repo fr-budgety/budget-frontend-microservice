@@ -51,7 +51,7 @@ class AddExpense extends Component {
         <MainContentArea>
           <SectionArea>
             <Title variant="dashboardTitle" color="dark" className="mb-1">
-              Expense:
+              Fill in the required fields
 				      </Title>
             <Paper>
               <AddExpenseForm icons={this.props.icons}/>
