@@ -35,6 +35,7 @@
   padding: 0 15px 0 15px;
   border-bottom: 2px solid $lightColorAlt;
   width: 100%;
+  color: $primaryColor;
 }
 .InputField--error{
   border-bottom: 2px solid $errorColor!important;
@@ -71,4 +72,54 @@
   color: $primaryColor;
   transition: all .5s;
   opacity: 1;
+}
+
+.DateField {
+
+  .InputField {
+    margin-top:35px;
+    margin-bottom: 0;
+    transition: all .5s;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+
+  input {
+    transition: all .5s;
+    background-color: transparent;
+    border-radius: 0;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-family: inherit;
+    font-size: 1em;
+    outline: none;
+    height: 46px;
+    padding: 0 15px 0 15px;
+    border-bottom: 2px solid $lightColorAlt;
+    width: 100%;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: $primaryColor;
+  }
+
+  .InputField input::placeholder {
+    color: $primaryColor;
+  }
+  
+
+  div {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: row;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    align-items: flex-end;
+    align-content: flex-end;
+    height: 100%;
+  }
+
 }

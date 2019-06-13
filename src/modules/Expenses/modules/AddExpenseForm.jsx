@@ -118,14 +118,16 @@ class AddExpenseForm extends Component {
 							onChange={this.handleChange}
 							placeholder="Beneficiary"
 						/>
-						<DatePicker
-							value={this.state.date}
-							timePicker={false}
-							onChange={date => this.setState({ date })}
-							className="column two-columns"
-						/>
 					</FormRow>
 					<FormRow>
+						<div className="Field DateField">
+							<DatePicker
+								value={this.state.date}
+								timePicker={false}
+								onChange={date => this.setState({ date })}
+								className="column two-columns"
+							/>
+						</div>
 						<InputField
 							classes="column two-columns"
 							error={errors.description}
@@ -149,6 +151,7 @@ class AddExpenseForm extends Component {
 							onChange={this.handleChange}
 							name="accounts"
 							classes="column two-columns"
+							error={errors.account}
 						/>
 							<SelectField
 							defaultOption="Select Category"
@@ -157,15 +160,6 @@ class AddExpenseForm extends Component {
 							name="category"
 							classes="column two-columns"
 						/>
-					</FormRow>
-					<FormRow>
-	
-					</FormRow>
-					<FormRow>
-					
-					</FormRow>
-					<FormRow>
-					
 					</FormRow>
 					<SendButton />
 				</Form>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export const SelectFieldExpense = ({ classes, error, children, options, name, value, onChange, defaultOption }) => (
   <div className="Field">
-    <div className={`SelectField ${classes}`}>
+    <div className={`SelectField ${classes} ${error ? "full-width effect InputField--error" : "full-width effect"}`}>
       <label>
         {children}
         <select value={value} onChange={onChange} name={name}>
