@@ -1,18 +1,14 @@
 import React, { Component } from "react";
 import PropTypes, { string } from "prop-types";
 import { connect } from "react-redux";
-import FlexGridContainer from "../../../components/grid/FlexGridContainer";
-import { setIconPath } from '../../../util/setIconPath';
-import ActionButtons from '../../../components/buttons/ActionButtons';
 import { getExpenses } from '../../../redux/actions/expenseActions';
 import { getAccounts } from '../../../redux/actions/accountActions';
 import { getCategories } from '../../../redux/actions/categoryActions';
 import SectionArea from "../../../components/grid/SectionArea";
-import Paper from "../../../components/grid/Paper";
 import ExpenseItem from "./ExpenseItem";
 import TypeFilter from "./filters/TypeFilter";
 import AccountFilter from "./filters/AccountFilter";
-import TypeFilterSelect from "./filters/TypeFilterSelect";
+import CategoryFilter from "./filters/CategoryFilter";
 
 
 
@@ -22,7 +18,8 @@ class ExpenseDashboard extends Component {
         this.state = {
             expenses: [],
             filteredExpenses: [],
-            accounts: []
+            accounts: [],
+            categories: [],
         }
     }
 
@@ -40,15 +37,22 @@ class ExpenseDashboard extends Component {
                 accounts: this.props.accounts.accounts
             })
         }
+        if (prevProps.categories.categories !== this.props.categories.categories) {
+            this.setState({
+                ...this.state,
+                categories: this.props.categories.categories
+            })
+        }
     }
 
     componentDidMount() {
         this.props.getExpenses();
         this.props.getAccounts();
+        this.props.getCategories();
     }
 
     //Filter Dispatch
-    arrayFilter = (initialArray, type, accountName) => {
+    arrayFilter = (initialArray, type, accountName, categoryName) => {
         this.props.getCategories();
         let items = initialArray;
         //Filter by type
@@ -57,6 +61,9 @@ class ExpenseDashboard extends Component {
         }
         if (accountName) {
             this.filterByAccount(items, accountName)
+        }
+        if (categoryName) {
+            this.filterByCategory(items, categoryName)
         }
     }
 
@@ -75,8 +82,17 @@ class ExpenseDashboard extends Component {
         let filteredArray = [];
         if(accountName){
             filteredArray = this.state.expenses;
-            console.log(`Looking in ${filteredArray} for ${accountName}`)
             filteredArray = initialArray.filter(item => item.account===accountName);
+            this.setFilteredArray(filteredArray);
+        }
+    }
+
+    //Filter By Category Action
+    filterByCategory = (initialArray, categoryName) => {
+        let filteredArray = [];
+        if(categoryName){
+            filteredArray = this.state.expenses;
+            filteredArray = initialArray.filter(item => item.category===categoryName);
             this.setFilteredArray(filteredArray);
         }
     }
@@ -89,12 +105,14 @@ class ExpenseDashboard extends Component {
     }
 
     render() {
-        const { filteredExpenses, accounts, expenses } = this.state;
+        const { filteredExpenses, accounts, expenses, categories } = this.state;
+        console.log(categories)
         return (
             <SectionArea>
                     <div className="ExpenseItem__filters">
                         <TypeFilter expenses={expenses} filterAction={this.arrayFilter}/>
                         <AccountFilter expenses={expenses} items={accounts} filterAction={this.arrayFilter}/>
+                        <CategoryFilter expenses={expenses} items={categories} filterAction={this.arrayFilter}/>
                     </div>
                     {filteredExpenses.map(expense => <ExpenseItem expense={expense} key={expense._id} categoriesList={this.props.categories}/>)}
             </SectionArea>
