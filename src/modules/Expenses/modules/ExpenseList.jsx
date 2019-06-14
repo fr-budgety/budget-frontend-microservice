@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 import { connect } from "react-redux";
 import FlexGridContainer from "../../../components/grid/FlexGridContainer";
 import { setIconPath } from '../../../util/setIconPath';
@@ -11,7 +11,8 @@ import SectionArea from "../../../components/grid/SectionArea";
 import Paper from "../../../components/grid/Paper";
 import ExpenseItem from "./ExpenseItem";
 import TypeFilter from "./filters/TypeFilter";
-import FilterTest from "./filters/FilterTest";
+import AccountFilter from "./filters/AccountFilter";
+import TypeFilterSelect from "./filters/TypeFilterSelect";
 
 
 
@@ -47,12 +48,15 @@ class ExpenseDashboard extends Component {
     }
 
     //Filter Dispatch
-    arrayFilter = (initialArray, type) => {
+    arrayFilter = (initialArray, type, accountName) => {
         this.props.getCategories();
         let items = initialArray;
         //Filter by type
         if (type){
             this.filterByType(items, type)
+        }
+        if (accountName) {
+            this.filterByAccount(items, accountName)
         }
     }
 
@@ -63,6 +67,17 @@ class ExpenseDashboard extends Component {
             filteredArray = initialArray;
             filteredArray = initialArray.filter(item => item.type===type)
             this.setFilteredArray(filteredArray)
+        }
+    }
+
+    //Filter By Account Action
+    filterByAccount = (initialArray, accountName) => {
+        let filteredArray = [];
+        if(accountName){
+            filteredArray = this.state.expenses;
+            console.log(`Looking in ${filteredArray} for ${accountName}`)
+            filteredArray = initialArray.filter(item => item.account===accountName);
+            this.setFilteredArray(filteredArray);
         }
     }
 
@@ -79,13 +94,7 @@ class ExpenseDashboard extends Component {
             <SectionArea>
                     <div className="ExpenseItem__filters">
                         <TypeFilter expenses={expenses} filterAction={this.arrayFilter}/>
-                        <FilterTest items={accounts} filterAction={this.arrayFilter}/>
-                        <select value="{value}" onChange="{onChange}" name="{name}">
-                            <option value="">Account Filter</option>
-                            {accounts.map(option=>(
-                                <option value={option.name}>{option.name}</option>
-                            ))}
-                        </select>
+                        <AccountFilter expenses={expenses} items={accounts} filterAction={this.arrayFilter}/>
                     </div>
                     {filteredExpenses.map(expense => <ExpenseItem expense={expense} key={expense._id} categoriesList={this.props.categories}/>)}
             </SectionArea>

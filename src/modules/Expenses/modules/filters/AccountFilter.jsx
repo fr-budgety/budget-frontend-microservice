@@ -4,20 +4,28 @@ import Select from 'react-select';
 
 
 
-class FilterTest extends Component {
+class AccountFilter extends Component {
     state = {
         selectedOption: null,
     };
 
     handleChange = selectedOption => {
         this.setState({ selectedOption });
+        this.filterAction(selectedOption);
         console.log(`Option selected:`, selectedOption);
     };
+
+    filterAction = selectedOption => {
+        if(selectedOption.value){
+            this.props.filterAction(this.props.expenses, false, selectedOption.value);
+        }
+    }
 
 
     render() {
         const { items } = this.props;
         const { selectedOption } = this.state;
+        
         return (
             <Select
                 value={selectedOption}
@@ -34,9 +42,9 @@ class FilterTest extends Component {
     }
 }
 
-FilterTest.propTypes = {
+AccountFilter.propTypes = {
     expenses: PropTypes.array.isRequired,
     filterAction: PropTypes.func.isRequired
 };
 
-export default FilterTest;
+export default AccountFilter;
