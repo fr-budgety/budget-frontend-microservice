@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes, { string } from "prop-types";
+import moment from 'moment';
 import { connect } from "react-redux";
 import { getExpenses } from '../../../redux/actions/expenseActions';
 import { getAccounts } from '../../../redux/actions/accountActions';
@@ -9,6 +10,7 @@ import ExpenseItem from "./ExpenseItem";
 import TypeFilter from "./filters/TypeFilter";
 import AccountFilter from "./filters/AccountFilter";
 import CategoryFilter from "./filters/CategoryFilter";
+import DateFilter from "./filters/DateFilter";
 
 
 
@@ -52,7 +54,7 @@ class ExpenseDashboard extends Component {
     }
 
     //Filter Dispatch
-    arrayFilter = (initialArray, type, accountName, categoryName) => {
+    arrayFilter = (initialArray, type, accountName, categoryName, dateFrom, dateTo) => {
         this.props.getCategories();
         let items = initialArray;
         //Filter by type
@@ -64,6 +66,9 @@ class ExpenseDashboard extends Component {
         }
         if (categoryName) {
             this.filterByCategory(items, categoryName)
+        }
+        if (dateFrom || dateTo) {
+            this.filterByDate(items, dateFrom, dateTo)
         }
     }
 
@@ -97,6 +102,20 @@ class ExpenseDashboard extends Component {
         }
     }
 
+    //Filter By Date Action
+    filterByDate = (initialArray, dateFrom, dateTo) => {
+        let filteredArray = [];
+        if(dateFrom && dateTo){
+            filteredArray = this.state.expenses;
+            filteredArray = initialArray.filter(item => {
+                if(moment(item.date).isBetween(dateFrom, dateTo)){
+                    return item
+                }
+            });
+            this.setFilteredArray(filteredArray);
+        }
+    }
+
     //Filter SetState Reducer
     setFilteredArray = (filteredArray) => {
         this.setState({
@@ -113,6 +132,7 @@ class ExpenseDashboard extends Component {
                         <TypeFilter expenses={expenses} filterAction={this.arrayFilter}/>
                         <AccountFilter expenses={expenses} items={accounts} filterAction={this.arrayFilter}/>
                         <CategoryFilter expenses={expenses} items={categories} filterAction={this.arrayFilter}/>
+                        <DateFilter expenses={expenses}/>
                     </div>
                     {filteredExpenses.map(expense => <ExpenseItem expense={expense} key={expense._id} categoriesList={this.props.categories}/>)}
             </SectionArea>
