@@ -11,8 +11,8 @@ class TypeFilter extends Component {
         const {expenses} = this.props;
         return (
             <div className="TypeFilter">
-                <a onClick={()=>this.handleClick(expenses, 'income')}>Income</a>
-                <a onClick={()=>this.handleClick(expenses, 'expense')}>expenses</a>
+                <button onClick={()=>this.handleClick(expenses, 'income')}>Income</button>
+                <button onClick={()=>this.handleClick(expenses, 'expense')}>expenses</button>
             </div>
         )
     }

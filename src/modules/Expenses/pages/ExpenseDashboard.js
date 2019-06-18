@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { clearErrors } from "../../../redux/actions/accountActions";
 import { setCurrentPage } from "../../../redux/actions/layoutActions";
-import {getCategories, deleteCategory, toggleAddCategoryModal, toggleEditCategoryModal} from '../../../redux/actions/categoryActions';
+import {toggleAddCategoryModal} from '../../../redux/actions/categoryActions';
 import { getIcons } from '../../../redux/actions/iconActions';
 import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import MainContentArea from "../../../components/grid/MainContentArea";
@@ -75,9 +75,11 @@ class ExpenseDashboard extends Component {
 ExpenseDashboard.propTypes = {
   errors: PropTypes.object,
   setCurrentPage: PropTypes.func.isRequired,
-  clearErrors: PropTypes.func.isRequired,
   getIcons: PropTypes.func.isRequired,
-  icons: PropTypes.object.isRequired
+  icons: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]),
 };
 
 const mapStateToProps = state => {

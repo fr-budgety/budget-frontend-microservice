@@ -23,6 +23,11 @@ export const balanceCalculation = (expensesArr, startingBalance) =>
 			balanceAmount = +balanceAmount + +currentExpense.amount;
 			incomesArr.push(currentExpense);
 		}
+		return {
+			outgoingsArr,
+			incomesArr,
+			balanceAmount
+		};
 	});
 	return {
 		outgoingsArr,

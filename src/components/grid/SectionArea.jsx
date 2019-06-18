@@ -10,7 +10,10 @@ const SectionArea = ({children, className}) => {
 }
 
 SectionArea.propTypes = {
-    children: PropTypes.array.isRequired,
+    children:  PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ]),
     className: PropTypes.string
 }
 

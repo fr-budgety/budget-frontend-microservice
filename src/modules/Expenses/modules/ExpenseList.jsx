@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes, { string } from "prop-types";
+import PropTypes from "prop-types";
 import moment from 'moment';
 import { connect } from "react-redux";
 import { getExpenses } from '../../../redux/actions/expenseActions';
@@ -61,15 +61,25 @@ class ExpenseDashboard extends Component {
         if (type){
             this.filterByType(items, type)
         }
-        if (accountName) {
+        else if (accountName) {
             this.filterByAccount(items, accountName)
         }
-        if (categoryName) {
+        else if (categoryName) {
             this.filterByCategory(items, categoryName)
         }
-        if (dateFrom || dateTo) {
+        else if (dateFrom || dateTo) {
             this.filterByDate(items, dateFrom, dateTo)
         }
+        else {
+            this.filterReset(items);
+        }
+    }
+
+    //Reset filters
+    filterReset = (initialArray) => {
+        let filteredArray = [];
+        filteredArray = initialArray;
+        this.setFilteredArray(filteredArray)
     }
 
     //Filter By Type Action
@@ -125,14 +135,13 @@ class ExpenseDashboard extends Component {
 
     render() {
         const { filteredExpenses, accounts, expenses, categories } = this.state;
-        console.log(categories)
         return (
             <SectionArea>
                     <div className="ExpenseItem__filters">
                         <TypeFilter expenses={expenses} filterAction={this.arrayFilter}/>
                         <AccountFilter expenses={expenses} items={accounts} filterAction={this.arrayFilter}/>
                         <CategoryFilter expenses={expenses} items={categories} filterAction={this.arrayFilter}/>
-                        <DateFilter expenses={expenses}/>
+                        <DateFilter expenses={expenses} filterAction={this.arrayFilter}/>
                     </div>
                     {filteredExpenses.map(expense => <ExpenseItem expense={expense} key={expense._id} categoriesList={this.props.categories}/>)}
             </SectionArea>
@@ -142,7 +151,6 @@ class ExpenseDashboard extends Component {
 
 ExpenseDashboard.propTypes = {
     errors: PropTypes.object,
-    clearErrors: PropTypes.func.isRequired,
     getCategories: PropTypes.func.isRequired,
     getAccounts: PropTypes.func.isRequired
 };

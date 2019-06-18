@@ -12,7 +12,6 @@ class AccountFilter extends Component {
     handleChange = selectedOption => {
         this.setState({ selectedOption });
         this.filterAction(selectedOption);
-        console.log(`Option selected:`, selectedOption);
     };
 
     filterAction = selectedOption => {
