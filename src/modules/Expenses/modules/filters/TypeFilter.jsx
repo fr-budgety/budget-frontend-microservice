@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Button from '../../../../components/buttons/Button';
 import PropTypes from "prop-types";
 
 class TypeFilter extends Component {
@@ -11,8 +12,12 @@ class TypeFilter extends Component {
         const {expenses} = this.props;
         return (
             <div className="TypeFilter">
-                <button onClick={()=>this.handleClick(expenses, 'income')}>Income</button>
-                <button onClick={()=>this.handleClick(expenses, 'expense')}>expenses</button>
+                <div className="TypeFilter__item">
+                    <Button action={()=>this.handleClick(expenses, 'income')} text="Income" buttonType="button-extraSmall alt-color"/>
+                </div>
+                <div className="TypeFilter__item">
+                    <Button action={()=>this.handleClick(expenses, 'expense')} text="Expenses" buttonType="button-extraSmall alt-color"/>
+                </div>
             </div>
         )
     }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import moment from 'moment';
 import DatePicker from 'react-datepicker2';
+import Button from '../../../../components/buttons/Button';
 
 
 class DateFilter extends Component {
@@ -30,19 +31,19 @@ class DateFilter extends Component {
 
     //Filter action
     filterAction = (fromDate, toDate) => {
-        const {isFromSet, isToSet} = this.state;
+        const { isFromSet, isToSet } = this.state;
 
         let datesObject = {
             fromDate: false,
             toDate: false,
         };
 
-        this.setState({errors: null}, () => {
-            if (isFromSet && isToSet){
+        this.setState({ errors: null }, () => {
+            if (isFromSet && isToSet) {
                 datesObject.fromDate = fromDate;
                 datesObject.toDate = toDate;
                 this.props.filterAction(this.props.expenses, false, false, false, datesObject.fromDate, datesObject.toDate);
-            }else{
+            } else {
                 this.setState({
                     errors: 'Please fill "From" and "To" date filters',
                 })
@@ -52,34 +53,42 @@ class DateFilter extends Component {
 
     render() {
         return (
-            <React.Fragment>
-            <div className="Field DateField">
-                <p>From</p>
-                <DatePicker
-                    value={this.state.dateFrom}
-                    timePicker={false}
-                    onChange={dateFrom => {
-                            this.setState({ dateFrom, isFromSet: true })
-                        }
-                    }
-                    placeholderText="Select a date"
-                    className="column two-columns"
-                />
+            <div className="DateField__container mt-2">
+                <div className="DateField__item">
+                    <div className="Field DateField">
+                        <small className="helper-text IconTextArea--helper">From: </small>
+                        <DatePicker
+                            value={this.state.dateFrom}
+                            timePicker={false}
+                            onChange={dateFrom => {
+                                this.setState({ dateFrom, isFromSet: true })
+                            }
+                            }
+                            placeholderText="Select a date"
+                            className="column two-columns"
+                        />
+                    </div>
+                </div>
+                <div className="DateField__item">
+                    <div className="Field DateField">
+                    <small className="helper-text IconTextArea--helper">To: </small>
+                        <DatePicker
+                            value={this.state.dateTo}
+                            timePicker={false}
+                            onChange={dateTo => this.setState({ dateTo, isToSet: true })}
+                            className="column two-columns"
+                            placeholderText="Select a date"
+                        />
+                    </div>
+                </div>
+                <div className="DateField__item">
+                    {this.state.errors && <p>{this.state.errors}</p>}
+                    <div className="DateField__buttons">
+                        <Button action={() => this.filterAction(this.state.dateFrom, this.state.dateTo)} text="Filter" buttonType="button-extraSmall alt-color mr-1"/>
+                        <Button action={this.resetState} text="Clear Dates" buttonType="button-extraSmall alt-color"/>
+                    </div>
+                </div>
             </div>
-            <div className="Field DateField">
-                <p>To</p>
-                <DatePicker
-                    value={this.state.dateTo}
-                    timePicker={false}
-                    onChange={dateTo => this.setState({ dateTo, isToSet: true })}
-                    className="column two-columns"
-                    placeholderText="Select a date"
-                />
-            </div>
-            {this.state.errors && <p>{this.state.errors}</p>}
-            <button onClick={()=>this.filterAction(this.state.dateFrom, this.state.dateTo)}>Filter</button>
-            <button onClick={this.resetState}>Clear Filters</button>
-            </React.Fragment>
         )
     }
 

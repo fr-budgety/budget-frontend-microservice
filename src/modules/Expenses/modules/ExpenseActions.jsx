@@ -15,13 +15,12 @@ class ExpenseActions extends Component {
   render() {
     return (
       <SectionArea>
-        <FlexGridContainer>
+        <FlexGridContainer size="100">
         <Link to='/expenses/add'>
             <Button
-            text="Add new expense"
-            buttonType="button-small"
-            classes="add-new-category"
-            action={this.buttonAction}
+              text="Add new expense"
+              buttonType="button-small"
+              action={this.buttonAction}
             />
         </Link>
         </FlexGridContainer>

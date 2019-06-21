@@ -11,7 +11,7 @@ import TypeFilter from "./filters/TypeFilter";
 import AccountFilter from "./filters/AccountFilter";
 import CategoryFilter from "./filters/CategoryFilter";
 import DateFilter from "./filters/DateFilter";
-
+import Title from '../../../components/typography/Title';
 
 
 class ExpenseDashboard extends Component {
@@ -137,12 +137,28 @@ class ExpenseDashboard extends Component {
         const { filteredExpenses, accounts, expenses, categories } = this.state;
         return (
             <SectionArea>
+            
+                <div className="ExpenseItem__filters__container">
+                    <Title variant="h1" color="dark" className="ExpenseItem__filters__title">
+                        FILTER BY:
+                    </Title>
                     <div className="ExpenseItem__filters">
-                        <TypeFilter expenses={expenses} filterAction={this.arrayFilter}/>
-                        <AccountFilter expenses={expenses} items={accounts} filterAction={this.arrayFilter}/>
-                        <CategoryFilter expenses={expenses} items={categories} filterAction={this.arrayFilter}/>
-                        <DateFilter expenses={expenses} filterAction={this.arrayFilter}/>
+                        <div className="ExpenseItem__filters__filter">
+                            <TypeFilter expenses={expenses} filterAction={this.arrayFilter}/>
+                        </div>
+                        <div className="ExpenseItem__filters__filter">
+                            <AccountFilter expenses={expenses} items={accounts} filterAction={this.arrayFilter}/>
+                        </div>
+                        <div className="ExpenseItem__filters__filter">
+                            <CategoryFilter expenses={expenses} items={categories} filterAction={this.arrayFilter}/>
+                        </div>
                     </div>
+                    <div className="ExpenseItem__filters ">
+                        <div className="ExpenseItem__filters__filter">
+                            <DateFilter expenses={expenses} filterAction={this.arrayFilter}/>
+                        </div>
+                    </div>
+                </div>
                     {filteredExpenses.map(expense => <ExpenseItem expense={expense} key={expense._id} categoriesList={this.props.categories}/>)}
             </SectionArea>
         );
