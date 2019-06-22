@@ -8,15 +8,19 @@ import FlexGridContainer from '../../../components/grid/FlexGridContainer';
 
 class ExpenseActions extends Component {
 
+  buttonAction = () => {
+    console.log('action')
+  }
+
   render() {
     return (
       <SectionArea>
-        <FlexGridContainer>
+        <FlexGridContainer size="100">
         <Link to='/expenses/add'>
             <Button
-            text="Add new expense"
-            buttonType="button-small"
-            classes="add-new-category"
+              text="Add new expense"
+              buttonType="button-small"
+              action={this.buttonAction}
             />
         </Link>
         </FlexGridContainer>

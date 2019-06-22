@@ -32,10 +32,12 @@ class Confirmation extends Component {
 
 Confirmation.propTypes = {
 	onConfirmationModalClose: PropTypes.func.isRequired,
-	handleConfirmationCallback: PropTypes.func.isRequired,
-
+	handleConfirmationCallback: PropTypes.func,
 	visible: PropTypes.bool.isRequired,
-	children: PropTypes.object.isRequired
+	children:  PropTypes.oneOfType([
+		PropTypes.object,
+		PropTypes.array
+	  ])
 };
 
 export default Confirmation;

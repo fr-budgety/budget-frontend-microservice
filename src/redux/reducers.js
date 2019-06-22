@@ -10,13 +10,13 @@ import expenseReducer from './reducers/expenseReducer';
 import {reducer as toastrReducer} from 'react-redux-toastr';
 
 export default combineReducers({
- auth: authReducer,
- accounts: accountReducer,
- categories: categoryReducer,
- errors: errorsReducer,
- toastr: toastrReducer,
- message: toastrManagedReducer,
- layout: layoutReducer,
- icons: iconReducer,
- expenses: expenseReducer,
+	auth: authReducer,
+	accounts: accountReducer,
+	categories: categoryReducer,
+	errors: errorsReducer,
+	toastr: toastrReducer,
+	message: toastrManagedReducer,
+	layout: layoutReducer,
+	icons: iconReducer,
+	expenses: expenseReducer,
 });

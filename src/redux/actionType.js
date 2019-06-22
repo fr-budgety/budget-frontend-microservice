@@ -1,5 +1,5 @@
 export const GET_ERRORS = 'GET_ERRORS';
-export const CLEAR_ERRORS = 'CLEAR_ERRORS'
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const USER_IS_LOADING = 'USER_IS_LOADING';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const ADD_TOASTR_MESSAGE = 'ADD_TOASTR_MESSAGE';

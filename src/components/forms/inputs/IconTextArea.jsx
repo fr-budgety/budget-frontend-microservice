@@ -15,7 +15,7 @@ export default class IconTextArea extends Component {
   }
   
   render() {
-    const {icons,type, error} = this.props;
+    const {icons,type} = this.props;
     const filteredIcons = this.filterIconsByType(icons, type);
 
     return (

@@ -25,7 +25,7 @@ BudgetySidebar.propTypes = {
   type: PropTypes.string,
   title: PropTypes.string,
   children: PropTypes.object,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object
 };
 const mapStateToProps = (state) => ({
 	auth: state.auth,

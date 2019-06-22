@@ -116,7 +116,6 @@ class EditCategory extends Component {
 		const { errors, icons } = this.props;
 		const { editCategoryModalIsOpen } = this.props.categories;
 		const selectOptions = ["expense", "income"];
-		const id = this.props.categories.editCategory;
 		return (
 			<Modal
 				visible={editCategoryModalIsOpen}

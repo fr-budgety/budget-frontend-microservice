@@ -8,7 +8,6 @@ import Paper from "../../../components/grid/Paper";
 import FlexGridContainer from "../../../components/grid/FlexGridContainer";
 import { setIconPath } from '../../../util/setIconPath';
 import ActionButtons from '../../../components/buttons/ActionButtons';
-import Title from '../../../components/typography/Title';
 import SpecialText from '../../../components/typography/SpecialText';
 
 class ExpenseItem extends Component {
@@ -91,7 +90,7 @@ class ExpenseItem extends Component {
 }
 
 ExpenseItem.propTypes = {
-    item: PropTypes.object.isRequired,
+    item: PropTypes.object,
     categories: PropTypes.object.isRequired,
     setDeleteCategory: PropTypes.func.isRequired
 }

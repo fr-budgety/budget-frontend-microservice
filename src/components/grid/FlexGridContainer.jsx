@@ -17,7 +17,16 @@ FlexGridContainer.defaultProps = {
 
 FlexGridContainer.propTypes = {
     className: PropTypes.string,
-    type: PropTypes.string,
-    children: PropTypes.array.isRequired,
-    size: PropTypes.number
+    type:  PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
+    children:  PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ]),
+    size: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
 }
