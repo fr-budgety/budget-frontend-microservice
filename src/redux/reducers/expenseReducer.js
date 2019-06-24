@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, GET_EXPENSES } from '../actionType';
+import { ADD_EXPENSE, GET_EXPENSES, DELETE_EXPENSE } from '../actionType';
 
 const initialState = {
     expenses: [],
@@ -17,6 +17,11 @@ export default function (state = initialState, action) {
                 ...state,
                 expenses: state.expenses.concat(action.payload)
             }
+        case DELETE_EXPENSE:
+            return {
+                ...state,
+                expenses: state.expenses.filter(expenses => expenses._id !== action.payload)
+        }
 
         default:
             return state;

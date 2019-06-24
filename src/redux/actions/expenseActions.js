@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { addToastrMessage } from './toastrActions';
-import { ADD_EXPENSE, GET_EXPENSES, USER_IS_LOADING, GET_ERRORS, CLEAR_ERRORS } from '../actionType';
+import { ADD_EXPENSE, GET_EXPENSES, USER_IS_LOADING, GET_ERRORS, CLEAR_ERRORS, DELETE_EXPENSE } from '../actionType';
 
 //Add Account
 export const addExpense = (expenseData) => dispatch => {
@@ -47,6 +47,28 @@ export const getExpenses = () => dispatch => {
         });
 };
 
+
+//Delete expense by id
+export const deleteExpense = (expenseId) => dispatch => {
+    dispatch(setUserLoading(true));
+    axios
+    .delete(`/api/expenses/${expenseId}`)
+    .then( success => {
+      dispatch(setUserLoading(false));
+      dispatch(addToastrMessage('success','Success','Expense has been deleted'))
+      return dispatch({
+        type: DELETE_EXPENSE,
+        payload: expenseId
+      })
+    })
+    .catch(err =>{
+      dispatch(setUserLoading(false));
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    });
+  };
 
 /**
  * SET LOADING STATE

@@ -3,7 +3,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { setDeleteCategory } from '../../../redux/actions/categoryActions';
+import { deleteExpense } from '../../../redux/actions/expenseActions';
 import Paper from "../../../components/grid/Paper";
 import FlexGridContainer from "../../../components/grid/FlexGridContainer";
 import { setIconPath } from '../../../util/setIconPath';
@@ -45,9 +45,8 @@ class ExpenseItem extends Component {
         })
     }
 
-    handleToggleConfirmation = (_id) => {
-        this.props.handleToggleConfirmation();
-        this.props.setDeleteCategory(_id);
+    handleDeleteExpense = (_id) => {
+        this.props.deleteExpense(_id);
     };
     handleEditActivation = (_id) => {
         this.props.handleEditActivation(_id);
@@ -79,8 +78,7 @@ class ExpenseItem extends Component {
                             >
                                 {amount}
                             </SpecialText>
-                            <ActionButtons type="editButton" onClick={() => this.handleEditActivation(_id)} />
-                            <ActionButtons type="deleteButton" onClick={() => this.handleToggleConfirmation(_id)} />
+                            <ActionButtons type="deleteButton" onClick={() => this.handleDeleteExpense(_id)} />
                         </div>
                     </FlexGridContainer>
                 </Paper>
@@ -92,7 +90,7 @@ class ExpenseItem extends Component {
 ExpenseItem.propTypes = {
     item: PropTypes.object,
     categories: PropTypes.object.isRequired,
-    setDeleteCategory: PropTypes.func.isRequired
+    deleteExpense: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -101,4 +99,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, { setDeleteCategory })(ExpenseItem);
+export default connect(mapStateToProps, { deleteExpense })(ExpenseItem);
