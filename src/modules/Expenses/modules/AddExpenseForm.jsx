@@ -64,6 +64,7 @@ class AddExpenseForm extends Component {
 		const selectedCategoryId = this.getCategoryIdByName(this.state.category);
 		const expenseFields = {
 			account: this.state.accounts,
+			accountId: '',
 			category: selectedCategoryId,
 			description: this.state.description,
 			type: this.state.type,
@@ -71,6 +72,14 @@ class AddExpenseForm extends Component {
 			beneficiary: this.state.beneficiary,
 			date: moment(this.state.date).toISOString()
 		};
+
+		//Get account _id
+		this.props.accounts.accounts.filter(account=>{
+			if (account.name === expenseFields.account){
+				expenseFields.accountId = account._id;
+			}
+		})
+
 		this.props.addExpense(expenseFields);
 		e.preventDefault();
 	};
